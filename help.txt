@@ -1,37 +1,44 @@
-h1. rah_trim
+h1. rah_function
 
-p. Every function is a @<txp:tag />@. Rah_function is a plugin for "Textpattern CMS":http://www.textpattern.com that allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, or ending and closing PHP tags -- only thing you need is a XHTML like tag.
+p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, nor ending nor closing PHP tags -- only thing you need is a XHTML like tag.
 
-* Version: 0.1.1
-* Updated: 2009/11/21 11:00 PM GMT+2
+* Version: 0.2
+* Updated: 2009/11/28 9:45 AM GMT+2
 
 h3. Table of Contents
 
 * "List of features":#list-of-features
 * "Requirements":#requirements
-* "Installation and usage":#installation-and-usage
+* "Installation":#installation
 * "Attributes":#attributes
+* "Using the tag":#using-the-tag
 * "Examples":#example
 * "Changelog":#changelog
 
 h3(#list-of-features). List of features
 
 * Call any PHP function with a single TXP tag.
-* Use freely that functions attributes, flags and parameters.
-* Supports both, container and single tag format.
+* Freely use the functions attributes, flags and parameters.
+* Supports both, a container and single tag format.
 
 h3(#requirements). Requirements
 
 * PHP 4.3.0+
 * Textpattern 4.x.x+
 
-h3(#installation-and-usage). Installation and usage
+h3(#installation). Installation
 
-p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to use new tags that plugin includes like others.
+p. Rah_function's installation follows the usual standard plugin installation steps.
 
-p. To use the plugin call it's tag, @<rah_function />@, suplying the function you want to call with it and attributes. The tag also be used as a container tag. If used as a container, contained code is used as the first attribute for the function.
+# Download the plugin installation code.
+# Copy and paste installation code into your Plugin Management's "Install plugin" box.
+# Run the automated setup.
+# After the setup is done, remember to activate the plugin.
 
-p. PHP scripting must be allowed from Textpattern's advanced preferences to allow the plugin to run (for security reasons). If PHP scripting is turned off, the plugin won't execute the code and returns nothing; Is silent, no errors, no nothing. If tag is used inside articles, the article author must have permissions to publish content.
+p. After installation make sure that you have allowed PHP scripting:
+
+# Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
+# Toggle allow on PHP scripting for Pages and Articles (or for where you want to use the plugin).
 
 h3(#attributes). Attributes
 
@@ -41,13 +48,28 @@ p. *call*
 What function to call with the tag.
 Example: @call="base64_encode"@ Default: @""@
 
+p. *thing*
+With thing you can choose the argument place for container's contained statement. For example, if @thing="here"@ is the last attribute/argument, then the contained statment is used as the last argument too for the function. If @thing@ is left undefined, contained statement is used as the first argument.
+Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
+
 p. *parameter1,parameter2,parameter3,[..]*
-Can be anything. All parameter are assigned to the called function. Paremeters are assigned in the order they are typed.
-Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: @""@ (unset)
+Can be anything. All parameters are assigned to the called function. Arguments are assigned in the order parameters are typed.
+Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
+
+h3(#using-the-tag). Using the tag
+
+p. The tag, @<txp:rah_function />@ supports a container tag usage. If the tag is used in a container format, the contained statement/code is used as:
+
+* In the argument place that you chose with @thing="here"@. See Attributes and Examples for more info.
+* If @thing@ is left undefined, contained statement is used as the first argument.
+
+p. If the tag is used in a self-closing format, then the contained statement is not used (apparently) and the tag works just with the attributes you set.
+
+p. All arguments/attributes/parameters that are used inside the tag, are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
 
 h3(#example). Examples
 
-p. *Usign base64_encode() as a container:*
+p. *Example #1: @base64_encode()@ as a container:*
 
 bc. <txp:rah_function call="base64_encode">
 	Hello world!
@@ -55,13 +77,21 @@ bc. <txp:rah_function call="base64_encode">
 
 p. Returns: @DQoJSGVsbG8gd29ybGQhDQo=@
 
-p. *Usign str_replace() as a single tag:*
+p. *Example #2: @str_replace()@ as a single tag:*
 
 bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" subject="Hello world!" />
 
 p. Returns: @Hi world!@
 
-p. *Usign trim() as container with attributes:*
+p. *Example #3: @str_replace()@ as a container tag. Contained statement is used as subject (placing it is done by using @thing="here"@):*
+
+bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" thing="here">
+	Hello world!
+</txp:rah_function>
+
+p. Returns: @Hi world!@
+
+p. *Example #4: @trim()@ as a container with attributes:*
 
 bc. <txp:rah_function call="trim" charlist="H">
 	Hello world!
@@ -69,7 +99,7 @@ bc. <txp:rah_function call="trim" charlist="H">
 
 p. Returns: @ello world!@
 
-p. *Usign safe_strftime() from TXP's core library:*
+p. *Example #5: using @safe_strftime()@ from TXP's core library:*
 
 bc. <txp:rah_function call="safe_strftime">
 	%Y
@@ -77,7 +107,23 @@ bc. <txp:rah_function call="safe_strftime">
 
 p. Returns: @2009@.
 
+p. *Example #6: Fetching a single field from the database with @fetch()@:*
+
+bc. <txp:rah_function call="fetch" what="last_access" from="txp_users" where="user_id" is="1" />
+
+Returns: Last access time for site admin with user ID of 1.
+
+p. *Example #7: Counting the amount of articles in the current section:*
+
+bc. <txp:rah_function call="safe_count" table="textpattern" where='Section="<txp:section />"' />
+
+Returns: number of articles.
+
 h3(#changelog). Changelog
+
+p. *Version 0.2*
+
+* Added attribute: @thing@. Thanks you "ruud":http://forum.textpattern.com/viewtopic.php?pid=220042#p220042 for suggestion.
 
 p. *Version 0.1.1*
 
