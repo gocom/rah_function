@@ -2,8 +2,8 @@ h1. rah_trim
 
 p. Every function is a @<txp:tag />@. Rah_function is a plugin for "Textpattern CMS":http://www.textpattern.com that allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, or ending and closing PHP tags -- only thing you need is a XHTML like tag.
 
-* Version: 0.1
-* Updated: 2009/11/21 8:30 PM GMT+2
+* Version: 0.1.1
+* Updated: 2009/11/21 11:00 PM GMT+2
 
 h3. Table of Contents
 
@@ -30,6 +30,8 @@ h3(#installation-and-usage). Installation and usage
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to use new tags that plugin includes like others.
 
 p. To use the plugin call it's tag, @<rah_function />@, suplying the function you want to call with it and attributes. The tag also be used as a container tag. If used as a container, contained code is used as the first attribute for the function.
+
+p. PHP scripting must be allowed from Textpattern's advanced preferences to allow the plugin to run (for security reasons). If PHP scripting is turned off, the plugin won't execute the code and returns nothing; Is silent, no errors, no nothing. If tag is used inside articles, the article author must have permissions to publish content.
 
 h3(#attributes). Attributes
 
@@ -76,6 +78,10 @@ bc. <txp:rah_function call="safe_strftime">
 p. Returns: @2009@.
 
 h3(#changelog). Changelog
+
+p. *Version 0.1.1*
+
+* Added @has_privs()@ and @allow_scripting@ checks.
 
 p. *Version 0.1*
 

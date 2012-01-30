@@ -1,13 +1,23 @@
 <?php	##################
 	#
 	#	rah_function-plugin for Textpattern
-	#	version 0.1
+	#	version 0.1.1
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
 	###################
 
 	function rah_function($atts,$thing='') {
+		global $prefs,$is_article_body;
+		if(!empty($is_article_body)) {
+			if(empty($prefs['allow_article_php_scripting']))
+				return '';
+			global $thisarticle;
+			if(!has_privs('article.php', $thisarticle['authorid']))
+				return '';
+		} else 
+			if(empty($prefs['allow_page_php_scripting']))
+				return '';
 		if(!isset($atts['call']))
 			return '';
 		$flags = array();
