@@ -1,0 +1,1 @@
+Every function is a TXP tag.
