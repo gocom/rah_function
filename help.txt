@@ -1,9 +1,9 @@
 h1. rah_function
 
-p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, ending nor closing PHP tags -- only thing you need is a XHTML like tag.
+p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- only thing you need is a XML like tag.
 
-* Version: 0.3
-* Updated: 2011/07/08 3:00 PM UTC
+* Version: 0.4
+* Updated: 2011/12/16 5:15 PM UTC
 
 h3. Table of Contents
 
@@ -120,6 +120,10 @@ bc. <txp:rah_function call="safe_count" table="textpattern" where='Section="<txp
 Returns: number of articles.
 
 h3(#changelog). Changelog
+
+p. *Version 0.4*
+
+* Improved: Do not use attributes' real names in the function call, but use an temp array. Makes sure attributes get resolved as valid variables no matter what is passed by Textpattern's parser to the plugin.
 
 p. *Version 0.3*
 

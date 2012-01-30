@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_function-plugin for Textpattern
-	#	version 0.3
+	#	version 0.4
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -28,7 +28,7 @@
 		else if(!$prefs['allow_page_php_scripting'])
 			return;
 
-		$flags = array();
+		$flags = $temp = array();
 		$function = $atts['call'];
 		unset($atts['call']);
 
@@ -38,12 +38,17 @@
 			else
 				$flags[] = 'parse($thing)';
 		}
+		
+		$i = 0;
 
-		foreach($atts as $key => $att) 
-			$flags[] = '$atts["'.$key.'"]';
+		foreach($atts as $value) {
+			$i++;
+			$temp[$i] = $value;
+			$flags[] = '$temp['.$i.']';
+		}
+		
 		$flag = implode(',',$flags);
-		$php = '$out = '.$function.'('.$flag.');';
-		eval($php);
+		eval('$out = '.$function.'('.$flag.');');
 		return $out;
 	}
 ?>
