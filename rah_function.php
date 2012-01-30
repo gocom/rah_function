@@ -1,17 +1,26 @@
-<?php	##################
-	#
-	#	rah_function-plugin for Textpattern
-	#	version 0.4
-	#	by Jukka Svahn
-	#	http://rahforum.biz
-	#
-	#	Copyright (C) 2011 Jukka Svahn <http://rahforum.biz>
-	#	Licensed under GNU Genral Public License version 2
-	#	http://www.gnu.org/licenses/gpl-2.0.html
-	#
-	##################
+<?php
 
-	function rah_function($atts,$thing=NULL) {
+/**
+ * Rah_function plugin for Textpattern CMS
+ *
+ * @author Jukka Svahn
+ * @date 2009-
+ * @license GNU GPLv2
+ * @link http://rahforum.biz/plugins/rah_function
+ *
+ * Copyright (C) 2012 Jukka Svahn <http://rahforum.biz>
+ * Licensed under GNU Genral Public License version 2
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+/**
+ * Calls PHP functions
+ * @param array $atts
+ * @param string $thing
+ * @return mixed
+ */
+
+	function rah_function($atts, $thing=NULL) {
 		
 		if(!isset($atts['call']) || !$atts['call'] || !function_exists($atts['call']))
 			return;
