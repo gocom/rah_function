@@ -1,9 +1,9 @@
 h1. rah_function
 
-p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, nor ending nor closing PHP tags -- only thing you need is a XHTML like tag.
+p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern tag syntax. No need for PHP snippets, ending nor closing PHP tags -- only thing you need is a XHTML like tag.
 
-* Version: 0.2
-* Updated: 2009/11/28 9:45 AM GMT+2
+* Version: 0.3
+* Updated: 2011/07/08 3:00 PM UTC
 
 h3. Table of Contents
 
@@ -18,8 +18,8 @@ h3. Table of Contents
 h3(#list-of-features). List of features
 
 * Call any PHP function with a single TXP tag.
-* Freely use the functions attributes, flags and parameters.
-* Supports both, a container and single tag format.
+* Freely use function's attributes, flags and parameters.
+* Supports both, a container and a single tag format.
 
 h3(#requirements). Requirements
 
@@ -31,11 +31,11 @@ h3(#installation). Installation
 p. Rah_function's installation follows the usual standard plugin installation steps.
 
 # Download the plugin installation code.
-# Copy and paste installation code into your Plugin Management's "Install plugin" box.
+# Copy and paste installation code into your Textpattern installation's Plugin pane's "Install plugin" box.
 # Run the automated setup.
-# After the setup is done, remember to activate the plugin.
+# After the setup is done, activate the plugin. Done.
 
-p. After installation make sure that you have allowed PHP scripting:
+p. The plugin respects Textpattern's scripting preferences. After installation make sure that you have allowed PHP scripting:
 
 # Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
 # Toggle allow on PHP scripting for Pages and Articles (or for where you want to use the plugin).
@@ -45,27 +45,27 @@ h3(#attributes). Attributes
 p. The tag is @<txp:rah_function />@ and attributes for it follow.
 
 p. *call*
-What function to call with the tag.
+The name of the function you want to use with the tag. This attribute is required.
 Example: @call="base64_encode"@ Default: @""@
 
 p. *thing*
-With thing you can choose the argument place for container's contained statement. For example, if @thing="here"@ is the last attribute/argument, then the contained statment is used as the last argument too for the function. If @thing@ is left undefined, contained statement is used as the first argument.
+With thing you can choose the argument place for container mode's contained statement. For example, if @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
 p. *parameter1,parameter2,parameter3,[..]*
-Can be anything. All parameters are assigned to the called function. Arguments are assigned in the order parameters are typed.
+Can be anything. All parameters are passed to the called function. Arguments are assigned to the function in the order they are defined.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
 h3(#using-the-tag). Using the tag
 
 p. The tag, @<txp:rah_function />@ supports a container tag usage. If the tag is used in a container format, the contained statement/code is used as:
 
-* In the argument place that you chose with @thing="here"@. See Attributes and Examples for more info.
-* If @thing@ is left undefined, contained statement is used as the first argument.
+* In the argument place that chosen with @thing="here"@ attribute. See _List of attributes_ and _Examples_ for more information.
+* If @thing@ is left undefined, contained statement is used as the function's first argument.
 
 p. If the tag is used in a self-closing format, then the contained statement is not used (apparently) and the tag works just with the attributes you set.
 
-p. All arguments/attributes/parameters that are used inside the tag, are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
+p. All attributes that are used inside the tag are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
 
 h3(#example). Examples
 
@@ -83,7 +83,7 @@ bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" subject="He
 
 p. Returns: @Hi world!@
 
-p. *Example #3: @str_replace()@ as a container tag. Contained statement is used as subject (placing it is done by using @thing="here"@):*
+p. *Example #3: @str_replace()@ as a container tag. Contained statement is used as subject (placing it as the correct parameter is done by using @thing="here"@):*
 
 bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" thing="here">
 	Hello world!
@@ -121,9 +121,14 @@ Returns: number of articles.
 
 h3(#changelog). Changelog
 
+p. *Version 0.3*
+
+* Fixed: Now empty, nothing-at-all, string can be used as the container-mode's wrapped statement.
+* Added: Now makes sure that the called function is really defined before executing anything.
+
 p. *Version 0.2*
 
-* Added attribute: @thing@. Thanks you "ruud":http://forum.textpattern.com/viewtopic.php?pid=220042#p220042 for suggestion.
+* Added attribute: @thing@. Thanks you "Ruud":http://forum.textpattern.com/viewtopic.php?pid=220042#p220042 for the suggestion.
 
 p. *Version 0.1.1*
 
