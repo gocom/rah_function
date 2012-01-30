@@ -2,31 +2,17 @@ h1. rah_function
 
 p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- only thing you need is a XML like tag.
 
-* Version: 0.4
-* Updated: 2011/12/16 5:15 PM UTC
-
-h3. Table of Contents
-
-* "List of features":#list-of-features
-* "Requirements":#requirements
-* "Installation":#installation
-* "Attributes":#attributes
-* "Using the tag":#using-the-tag
-* "Examples":#example
-* "Changelog":#changelog
-
-h3(#list-of-features). List of features
+h2. List of features
 
 * Call any PHP function with a single TXP tag.
 * Freely use function's attributes, flags and parameters.
 * Supports both, a container and a single tag format.
 
-h3(#requirements). Requirements
+h2. Requirements
 
-* PHP 4.3.0+
 * Textpattern 4.x.x+
 
-h3(#installation). Installation
+h2. Installation
 
 p. Rah_function's installation follows the usual standard plugin installation steps.
 
@@ -40,7 +26,7 @@ p. The plugin respects Textpattern's scripting preferences. After installation m
 # Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
 # Toggle allow on PHP scripting for Pages and Articles (or for where you want to use the plugin).
 
-h3(#attributes). Attributes
+h2. Attributes
 
 p. The tag is @<txp:rah_function />@ and attributes for it follow.
 
@@ -56,7 +42,7 @@ p. *parameter1,parameter2,parameter3,[..]*
 Can be anything. All parameters are passed to the called function. Arguments are assigned to the function in the order they are defined.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
-h3(#using-the-tag). Using the tag
+h2. Using the tag
 
 p. The tag, @<txp:rah_function />@ supports a container tag usage. If the tag is used in a container format, the contained statement/code is used as:
 
@@ -67,23 +53,25 @@ p. If the tag is used in a self-closing format, then the contained statement is 
 
 p. All attributes that are used inside the tag are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
 
-h3(#example). Examples
+h2. Examples
 
-p. *Example #1: @base64_encode()@ as a container:*
+h3. Basic usage of base64_encode as a container
 
 bc. <txp:rah_function call="base64_encode">
 	Hello world!
 </txp:rah_function>
 
-p. Returns: @DQoJSGVsbG8gd29ybGQhDQo=@
+p. Returns base64 encoded string: @DQoJSGVsbG8gd29ybGQhDQo=@
 
-p. *Example #2: @str_replace()@ as a single tag:*
+h3. Replacing content using str_replace in a single tag mode
 
 bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" subject="Hello world!" />
 
 p. Returns: @Hi world!@
 
-p. *Example #3: @str_replace()@ as a container tag. Contained statement is used as subject (placing it as the correct parameter is done by using @thing="here"@):*
+h3. Replacing content using str_replace and containers
+
+p. Contained statement is used as "str_replace":http://php.net/manual/en/function.str-replace.php's _subject_ parameter. Wrapped content is positioned to correct location by using @thing="here"@ in the tag.
 
 bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" thing="here">
 	Hello world!
@@ -91,7 +79,9 @@ bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" thing="here
 
 p. Returns: @Hi world!@
 
-p. *Example #4: @trim()@ as a container with attributes:*
+h3. Removing appending and prepending whitespace or other characters
+
+p. Wrapped content is passed to "trim":http://php.net/manual/en/function.trim.php function, which is set to strip @H@ characters from the beginning and the end.
 
 bc. <txp:rah_function call="trim" charlist="H">
 	Hello world!
@@ -99,7 +89,7 @@ bc. <txp:rah_function call="trim" charlist="H">
 
 p. Returns: @ello world!@
 
-p. *Example #5: using @safe_strftime()@ from TXP's core library:*
+h3. Returning time using safe_strftime()
 
 bc. <txp:rah_function call="safe_strftime">
 	%Y
@@ -107,37 +97,39 @@ bc. <txp:rah_function call="safe_strftime">
 
 p. Returns: @2009@.
 
-p. *Example #6: Fetching a single field from the database with @fetch()@:*
+h3. Fetching a single field from the database with fetch() function
 
 bc. <txp:rah_function call="fetch" what="last_access" from="txp_users" where="user_id" is="1" />
 
 Returns: Last access time for site admin with user ID of 1.
 
-p. *Example #7: Counting the amount of articles in the current section:*
+h3. Counting the amount of articles in the current section
+
+p. Counting is done with Textpattern's @safe_count()@ function.
 
 bc. <txp:rah_function call="safe_count" table="textpattern" where='Section="<txp:section />"' />
 
 Returns: number of articles.
 
-h3(#changelog). Changelog
+h2. Changelog
 
-p. *Version 0.4*
+h3. Version 0.4 - 2011/12/16
 
 * Improved: Do not use attributes' real names in the function call, but use an temp array. Makes sure attributes get resolved as valid variables no matter what is passed by Textpattern's parser to the plugin.
 
-p. *Version 0.3*
+h3. Version 0.3 - 2011/07/08
 
 * Fixed: Now empty, nothing-at-all, string can be used as the container-mode's wrapped statement.
 * Added: Now makes sure that the called function is really defined before executing anything.
 
-p. *Version 0.2*
+h3. Version 0.2 - 2009/11/28
 
 * Added attribute: @thing@. Thanks you "Ruud":http://forum.textpattern.com/viewtopic.php?pid=220042#p220042 for the suggestion.
 
-p. *Version 0.1.1*
+h3. Version 0.1.1 - 2009/11/21
 
 * Added @has_privs()@ and @allow_scripting@ checks.
 
-p. *Version 0.1*
+h3. Version 0.1 - 2009/11/21
 
 * First release
