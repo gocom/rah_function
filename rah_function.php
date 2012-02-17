@@ -13,16 +13,9 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-/**
- * Calls PHP functions
- * @param array $atts
- * @param string $thing
- * @return mixed
- */
-
 	function rah_function($atts, $thing=NULL) {
 		
-		if(!isset($atts['call']) || !$atts['call'] || !function_exists($atts['call']))
+		if(empty($atts['call']) || !function_exists($atts['call']))
 			return;
 
 		global $prefs, $is_article_body, $thisarticle;
