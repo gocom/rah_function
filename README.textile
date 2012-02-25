@@ -113,6 +113,11 @@ Returns: number of articles.
 
 h2. Changelog
 
+h3. Version 0.5 - upcoming
+
+* Updated code structure.
+* Updated help file (readme).
+
 h3. Version 0.4 - 2011/12/16
 
 * Improved: Do not use attributes' real names in the function call, but use an temp array. Makes sure attributes get resolved as valid variables no matter what is passed by Textpattern's parser to the plugin.
