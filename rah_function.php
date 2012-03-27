@@ -15,22 +15,26 @@
 
 	function rah_function($atts, $thing=NULL) {
 		
-		if(empty($atts['call']) || !function_exists($atts['call']))
-			return;
-
 		global $prefs, $is_article_body, $thisarticle;
+		
+		if(empty($atts['call']) || !function_exists($atts['call'])) {
+			trigger_error('Calling unknown function');
+			return;
+		}
 		
 		if($is_article_body) {
 			if(
 				!$prefs['allow_article_php_scripting'] ||
 				!has_privs('article.php', $thisarticle['authorid'])
-			)
+			) {
 				return;
+			}
 		}
-		else if(!$prefs['allow_page_php_scripting'])
+		
+		elseif(!$prefs['allow_page_php_scripting']) {
 			return;
+		}
 
-		$flags = $temp = array();
 		$function = $atts['call'];
 		unset($atts['call']);
 
@@ -38,25 +42,15 @@
 			if(isset($atts['thing'])) {
 				$atts['thing'] = parse($thing);
 			}
-			
 			else {
-				$flags[] = 'parse($thing)';
+				array_unshift($atts, parse($thing));
 			}
 		}
 		
-		$i = 0;
-
-		foreach($atts as $value) {
-			$i++;
-			$temp[$i] = $value;
-			$flags[] = '$temp['.$i.']';
-		}
-		
-		$flag = implode(',', $flags);
-		eval('$out = '.$function.'('.$flag.');');
+		$out = call_user_func_array($function, $atts);
 		
 		if(!is_scalar($out) && !is_array($out)) {
-			trigger_error('Returned invalid type, scalar or array required.');
+			trigger_error('Returned invalid type, scalar or array required');
 			return;
 		}
 		
