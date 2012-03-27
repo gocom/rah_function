@@ -10,7 +10,7 @@ h2. List of features
 
 h2. Requirements
 
-* Textpattern 4.x.x+
+* Textpattern 4.0.7 or newer.
 
 h2. Installation
 
@@ -115,8 +115,13 @@ h2. Changelog
 
 h3. Version 0.5 - upcoming
 
-* Updated code structure.
-* Updated help file (readme).
+* Added: convert returned booleans to uppercase strings, @TRUE@ and @FALSE@.
+* Added: return arrays as serialized strings.
+* Improved: Prevent passing non-scalars to the template.
+* Improved: Moved away from sanitization and @eval()@.
+* Improved: Show some error messages when needed.
+* Updated: Code structure.
+* Updated: Help file (readme).
 
 h3. Version 0.4 - 2011/12/16
 
