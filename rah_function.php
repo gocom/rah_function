@@ -35,10 +35,13 @@
 		unset($atts['call']);
 
 		if($thing !== NULL) {
-			if(isset($atts['thing']))
+			if(isset($atts['thing'])) {
 				$atts['thing'] = parse($thing);
-			else
+			}
+			
+			else {
 				$flags[] = 'parse($thing)';
+			}
 		}
 		
 		$i = 0;
@@ -49,8 +52,22 @@
 			$flags[] = '$temp['.$i.']';
 		}
 		
-		$flag = implode(',',$flags);
+		$flag = implode(',', $flags);
 		eval('$out = '.$function.'('.$flag.');');
+		
+		if(!is_scalar($out) && !is_array($out)) {
+			trigger_error('Returned invalid type, scalar or array required.');
+			return;
+		}
+		
+		if(is_bool($out)) {
+			$out = $out ? 'TRUE' : 'FALSE';
+		}
+		
+		elseif(is_array($out)) {
+			$out = serialize($out);
+		}
+		
 		return $out;
 	}
 ?>
