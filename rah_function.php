@@ -16,6 +16,7 @@
 	function rah_function($atts, $thing=NULL) {
 		
 		global $prefs, $is_article_body, $thisarticle;
+		static $serialized = array();
 		
 		if(empty($atts['call'])) {
 			trigger_error(gTxt('rah_function_call_attribute_required'));
@@ -49,7 +50,7 @@
 		
 		foreach($atts as $name => $value) {
 		
-			if(strpos($name, '_serialized') === 0) {
+			if(strpos($name, '_serialized') === 0 && in_array($value, $serialized)) {
 				$atts[$name] = unserialize($value);
 			}
 			
@@ -83,6 +84,7 @@
 		
 		elseif(is_array($atts)) {
 			$atts = serialize($atts);
+			$serialized[] = $atts;
 		}
 		
 		return $atts;
