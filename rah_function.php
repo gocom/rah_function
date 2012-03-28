@@ -63,14 +63,14 @@
 			}
 		}
 		
-		foreach(do_list($function) as $call) {
+		foreach(do_list($function) as $index => $call) {
 			
 			if(!function_exists($call)) {
 				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $call)));
 				return;
 			}
 			
-			$atts = call_user_func_array($call, is_array($atts) ? $atts : array($atts));
+			$atts = call_user_func_array($call, !$index ? $atts : array($atts));
 		}
 		
 		if(!is_scalar($atts) && !is_array($atts)) {
