@@ -74,7 +74,7 @@
 		}
 		
 		if(!is_scalar($atts) && !is_array($atts)) {
-			trigger_error('Returned invalid type, scalar or array required');
+			trigger_error(gTxt('rah_function_illegal_resulting_type'));
 			return;
 		}
 		
