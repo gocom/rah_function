@@ -47,6 +47,20 @@
 			}
 		}
 		
+		foreach($atts as $name => $value) {
+			if(strpos($name, '_serialized') === 0) {
+				$atts[$name] = unserialize($value);
+			}
+			
+			elseif(strpos($name, '_bool') === 0) {
+				$atts[$name] = $value && $value != 'FALSE';
+			}
+			
+			elseif(strpos($name, '_int') === 0) {
+				$atts[$name] = (int) $value;
+			}
+		}
+		
 		$out = call_user_func_array($function, $atts);
 		
 		if(!is_scalar($out) && !is_array($out)) {
