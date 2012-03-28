@@ -79,6 +79,14 @@ bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" thing="here
 
 p. Returns: @Hi world!@
 
+h3. Sanitizing and returning HTTP GET value
+
+p. Returning GET/POST values and sanitizing the output can be done with a single rah_function tag instance by using plugin's multi-function call feature. First we would use Textpattern's @gps@ function to get a specific value, e.g. @theme@, and then prepare it for the page template by converting HTML's special characters to entities with "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php.
+
+bc. <txp:rah_function call="gps, htmlspecialchars" name="theme" />
+
+p. Above would return HTTP GET/POST param's, named @theme@, value. If requested value is @?theme=I<3TXP@, above would return safe string of @I&lt;3TXP@.
+
 h3. Removing appending and prepending whitespace or other characters
 
 p. Wrapped content is passed to "trim":http://php.net/manual/en/function.trim.php function, which is set to strip @H@ characters from the beginning and the end.
