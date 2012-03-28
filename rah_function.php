@@ -17,8 +17,8 @@
 		
 		global $prefs, $is_article_body, $thisarticle;
 		
-		if(empty($atts['call']) || !function_exists($atts['call'])) {
-			trigger_error('Calling unknown function');
+		if(empty($atts['call'])) {
+			trigger_error(gTxt('rah_function_call_attribute_required'));
 			return;
 		}
 		
@@ -48,6 +48,7 @@
 		}
 		
 		foreach($atts as $name => $value) {
+		
 			if(strpos($name, '_serialized') === 0) {
 				$atts[$name] = unserialize($value);
 			}
@@ -61,21 +62,29 @@
 			}
 		}
 		
-		$out = call_user_func_array($function, $atts);
+		foreach(do_list($function) as $call) {
+			
+			if(!function_exists($call)) {
+				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $call)));
+				return;
+			}
+			
+			$atts = call_user_func_array($call, is_array($atts) ? $atts : array($atts));
+		}
 		
-		if(!is_scalar($out) && !is_array($out)) {
+		if(!is_scalar($atts) && !is_array($atts)) {
 			trigger_error('Returned invalid type, scalar or array required');
 			return;
 		}
 		
-		if(is_bool($out)) {
-			$out = $out ? 'TRUE' : 'FALSE';
+		if(is_bool($atts)) {
+			$atts = $atts ? 'TRUE' : 'FALSE';
 		}
 		
-		elseif(is_array($out)) {
-			$out = serialize($out);
+		elseif(is_array($atts)) {
+			$atts = serialize($atts);
 		}
 		
-		return $out;
+		return $atts;
 	}
 ?>
