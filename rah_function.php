@@ -16,7 +16,12 @@
 	function rah_function($atts, $thing=NULL) {
 		
 		global $prefs, $is_article_body, $thisarticle;
-		static $serialized = array();
+		static $serialized = array(), $whitelist = NULL;
+		
+		if($whitelist === NULL) {
+			$whitelist = defined('rah_function_whitelist') ? 
+				do_list(rah_function_whitelist) : array();
+		}
 		
 		if(empty($atts['call'])) {
 			trigger_error(gTxt('rah_function_call_attribute_required'));
@@ -69,7 +74,7 @@
 		
 		foreach(do_list($function) as $index => $call) {
 			
-			if(!function_exists($call)) {
+			if(!function_exists($call) || ($whitelist && !in_array($call, $whitelist))) {
 				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $call)));
 				return;
 			}

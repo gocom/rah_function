@@ -53,6 +53,18 @@ p. If the tag is used in a self-closing format, then the contained statement is 
 
 p. All attributes that are used inside the tag are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
 
+h2. Function whitelisting
+
+p. For added optional security, certain functions can be explicitly whitelisted. If whitelisting option is defined, then only those whitelisted functions can be called with a rah_function tag.
+
+p. Whitelisting options can be set from Textpattern's @config.php@ (e.g. /textpattern/config.php) file, and doesn't take more than adding a single line to it. Rah_function expects a constant named @rah_function_whitelist@, populated with comma-separated list of function names.
+
+bc. define('rah_function_whitelist', 'gps, ps, htmlspecialchars, str_replace');
+
+p. Where @gps@, @ps@, @htmlspecialchars@ and @str_replace@ would be the allowed functions.
+
+p. This whitelisting option is completely optional, and it doesn't need to be configured. It should be only used if you want to enable only certain functions for added security.
+
 h2. Examples
 
 h3. Basic usage of base64_encode as a container
@@ -127,6 +139,7 @@ h3. Version 0.5 - upcoming
 * Added: Arrays are returned as serialized string and can be passed from one tag instance to other. Serialized output can be extracted by prefixing used tag attribute name with @_serialized@.
 * Added: Converts returned booleans to uppercase strings, @TRUE@ and @FALSE@. This makes it possible to identify integers from booleans (e.g. strpos).
 * Added: Return arrays as serialized strings.
+* Added: Function whitelisting option.
 * Improved: Prevent passing non-scalars to the template.
 * Improved: Moved away from sanitization and @eval()@.
 * Improved: Show some error messages when needed.
