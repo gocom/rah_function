@@ -38,17 +38,17 @@
 
 		$function = $atts['call'];
 		unset($atts['call']);
-
-		if($thing !== NULL) {
-			if(isset($atts['thing'])) {
-				$atts['thing'] = parse($thing);
-			}
-			else {
-				array_unshift($atts, parse($thing));
-			}
-		}
 		
 		foreach($atts as $name => $value) {
+			
+			if(strpos($name, '_') !== 0 && $name != 'thing') {
+				continue;
+			}
+			
+			if($thing !== NULL && substr($name, -5) == 'thing') {
+				$value = $atts[$name] = parse($thing);
+				$thing = NULL;
+			}
 		
 			if(strpos($name, '_serialized') === 0 && in_array($value, $serialized)) {
 				$atts[$name] = unserialize($value);
@@ -61,6 +61,10 @@
 			elseif(strpos($name, '_int') === 0) {
 				$atts[$name] = (int) $value;
 			}
+		}
+		
+		if($thing !== NULL) {
+			array_unshift($atts, parse($thing));
 		}
 		
 		foreach(do_list($function) as $index => $call) {
