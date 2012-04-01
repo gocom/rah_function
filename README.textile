@@ -31,7 +31,7 @@ h2. Attributes
 p. The tag is @<txp:rah_function />@ and attributes for it follow.
 
 p. *call*
-The name of the function you want to use with the tag. This attribute is required.
+The name of the function or class method you want to use with the tag. This attribute is required.
 Example: @call="base64_encode"@ Default: @""@
 
 p. *thing*
@@ -135,6 +135,7 @@ h2. Changelog
 
 h3. Version 0.5 - upcoming
 
+* Added: Ability to call class methods (@call="Class->Method"@ and @call="Class::StaticMethod"@).
 * Added: Multiple functions can be called with a single tag instance (@call="func1, func2, func3"@). Output is passed by reference from function to function. First function in the list is treated as the primary and given tag attributes only apply to it.
 * Added: Arrays are returned as serialized string and can be passed from one tag instance to other. Serialized output can be extracted by prefixing used tag attribute name with @_serialized@.
 * Added: Converts returned booleans to uppercase strings, @TRUE@ and @FALSE@. This makes it possible to identify integers from booleans (e.g. strpos).

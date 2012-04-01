@@ -72,10 +72,24 @@
 			array_unshift($atts, parse($thing));
 		}
 		
-		foreach(do_list($function) as $index => $call) {
+		foreach(do_list($function) as $index => $name) {
 			
-			if(!function_exists($call) || ($whitelist && !in_array($call, $whitelist))) {
-				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $call)));
+			$call = $name;
+			
+			if(strpos($call, '::')) {
+				$call = explode('::', $call);
+			}
+			
+			elseif(strpos($call, '->')) {
+				$call = explode('->', $call);
+				
+				if(class_exists($call[0])) {
+					$call[0] = new $call[0];
+				}
+			}
+			
+			if(!is_callable($call) || ($whitelist && !in_array($name, $whitelist))) {
+				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
 				return;
 			}
 			
