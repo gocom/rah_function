@@ -1,0 +1,3 @@
+#@public
+#Default language, en-us, en-gb
+rah_function_illegal_type => Resulted illegal type. "{type}" in not a scalar or an array.
