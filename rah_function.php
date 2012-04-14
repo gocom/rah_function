@@ -24,7 +24,7 @@
 		}
 		
 		if(empty($atts['call'])) {
-			trigger_error(gTxt('rah_function_call_attribute_required'));
+			trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
 			return;
 		}
 		
@@ -89,7 +89,7 @@
 			}
 			
 			if(!is_callable($call) || ($whitelist && !in_array($name, $whitelist))) {
-				trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
+				trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
 				return;
 			}
 			
