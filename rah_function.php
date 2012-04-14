@@ -97,7 +97,7 @@
 		}
 		
 		if(!is_scalar($atts) && !is_array($atts)) {
-			trigger_error(gTxt('rah_function_illegal_resulting_type'));
+			trigger_error(gTxt('rah_function_illegal_type', array('{type}' => gettype($atts))));
 			return;
 		}
 		
