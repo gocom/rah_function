@@ -26,32 +26,51 @@ p. The plugin respects Textpattern's scripting preferences. After installation m
 # Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
 # Toggle allow on PHP scripting for Pages and Articles (or for where you want to use the plugin).
 
-h2. Attributes
+h2. Tag attributes
 
-p. The tag is @<txp:rah_function />@ and attributes for it follow.
+bc. <txp:rah_function call="function" thing="here" parameter1="value" parameter2="value">
+	Contained statement
+</txp:rah_function>
+
+p. The plugin introduces a new tag, @<txp:rah_function />@. It's a multi-purpose tag that allows to use public PHP functions and methods as Textpattern tags. The tag can be used both as container and in self-closing mode. Attributes for the are as follows.
 
 p. *call*
-The name of the function or class method you want to use with the tag. This attribute is required.
+The name of the function or class method you want to use with the tag. Comma-separated if multiple. This attribute is required.
 Example: @call="base64_encode"@ Default: @""@
 
 p. *thing*
 With thing you can choose the argument place for container mode's contained statement. For example, if @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
-p. *parameter1,parameter2,parameter3,[..]*
-Can be anything. All parameters are passed to the called function. Arguments are assigned to the function in the order they are defined.
+p. *parameter1="" , parameter2="" , parameter3="",[..]*
+Zero or more parameters passed to the called function as arguments. Theses additional tag attributes can be named anything. The parameters are assigned to the function in the order they are defined in the tag.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
-h2. Using the tag
+h2. Tag basics
 
-p. The tag, @<txp:rah_function />@ supports a container tag usage. If the tag is used in a container format, the contained statement/code is used as:
+p. The tag, @<txp:rah_function />@, is almost like a bridge between PHP and Textpattern tag syntax. It allows calling almost any internal PHP function as a Textpattern tag, opening new possibilities for Textpattern tags. Want to encode something? You can. Want use PHP's string functions to truncate, count and modify? You can. All without needing to write source code for new tags, or result using raw PHP blocks in page templates.
 
-* In the argument place that chosen with @thing="here"@ attribute. See _List of attributes_ and _Examples_ for more information.
-* If @thing@ is left undefined, contained statement is used as the function's first argument.
+p. The tag supports both a container and self-closing tag usage. If the tag is used in a container format, the contained statement is used in the parameter position specified with the tag's @thing="here"@ attribute. If @thing@ attribute is undefined, contained statement is used as the PHP function's first parameter.
 
-p. If the tag is used in a self-closing format, then the contained statement is not used (apparently) and the tag works just with the attributes you set.
+p. Below snippet, the contained statement @Hi World!@, is used as "str_replace":http://php.net/manual/en/function.str-replace.php function's third parameter as that is where the @thing="here"@ is specified.
 
-p. All attributes that are used inside the tag are assigned to the called function in the order they are defined. If no attributes are used, except the mandatory @call@, then the function is used as is with no arguments.
+bc. <txp:rah_function call="str_replace" from="Hi" to="Hello" thing="here">
+	Hi World!
+</txp:rah_function>
+
+p. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be used as first argument, leading to different results.
+
+bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
+	Hi World!
+</txp:rah_function>
+
+p. Still looks pretty much the same. But unlike previously with @thing@, now the tag returns @Hello@. Instead of the @to@ attribute, the contained statement would be used the searched needle in str_replace.
+
+p. Apart from tag's own reserved attributes, @thing@ and @call@, all attributes, are passed to the called function as arguments in the order the attributes are defined. When calling "md5,":http://php.net/manual/en/function.md5.php the first attribute would be used as the string from which the hash is calculated.
+
+bc. <txp:rah_function call="md5" str="apple" />
+
+p. Above returns, @1f3870be274f6c49b3e31a0c6728957f@, a MD5 hash of apple. If no additional attributes are used, then the called PHP function is used as is, without arguments.
 
 h2. Function whitelisting
 
