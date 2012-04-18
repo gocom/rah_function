@@ -72,6 +72,57 @@ bc. <txp:rah_function call="md5" str="apple" />
 
 p. Above returns, @1f3870be274f6c49b3e31a0c6728957f@, a MD5 hash of apple. If no additional attributes are used, then the called PHP function is used as is, without arguments.
 
+h2. Calling multiple functions
+
+p. Since version 0.5, a single tag can call multiple functions. This allows to further process output returned by a function with second or more function.
+
+p. Calling multiple functions with a single tag instance is done by simply using comma-separated (@,@) list of functions in the @call@ attribute.
+
+bc. <txp:rah_function call="strip_tags, trim">
+	<p>Some markup to strip and surrounding white-space to trim.</p>
+</txp:rah_function>
+
+p. Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php would be run first, and its output would be then passed to "trim.":http://php.net/manual/en/function.trim.php
+
+p. The first function in the list acts as the primary. The first function's output is passed by reference to following functions, and all tag attributes only apply to it.
+
+p. Second or later functions do not get passed any attributes, and the passed output from the first function is assigned as functions' first parameter. Multi-function calling works only if the following functions expect a one single parameter. If the following functions require more than a one parameter, more than one @<txp:rah_function />@ tag is needed.
+
+bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
+	<txp:rah_function call="substr" string="Hello World!" start="0" end=7" />
+</txp:rah_function>
+
+p. For example calling both "str_replace":http://www.php.net/manual/en/function.str-replace.php and "substr":http://www.php.net/manual/en/function.substr.php would require two tags.
+
+h2. Returned values and legal types
+
+p. Due the way how Textpattern's template language and PHP work and translate each other, not every function's output can be returned to the template. The limitation comes in form of "types.":http://php.net/manual/en/language.types.php
+
+p. Rah_function returns values of types integer, float and string to the template as is, in their true presentation, with the expectation that the returned type is converted to a string by Textpattern.
+
+p. Last from the scalars, boolean, is converted to a uppercase string @TRUE@ and @FALSE@. This is for allow detecting an empty string, 1, 0 and boolean from each other. Otherwise in Textpattern's template context you would have no idea which is which.
+
+p. For instance PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns either an integer starting from zero (@0@) or boolean FALSE, when no matches are found. When the output gets juggled to string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
+
+bc. <txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>
+
+p. If no conversion were done, above would return a zero, but so it would if there was no match. But with conversion the position and boolean are distinguishable.
+
+bc.. <txp:variable 
+	name="matches"
+	value='<txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>'
+/>
+
+<txp:if_variable name="matches" value="FALSE">
+	No matches.
+<txp:else />
+	First match at <txp:variable name="matches" />
+</txp:if_variable>
+
+p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "serialized":http://php.net/manual/en/function.serialize.php byte-stream representations. Rest of types including object, resource, NULL and callable will be discarded and an error message will be issued.
+
+p. Discarding is done to prevent issues. The types that are not returned do not translate to the markup language, and are not usable in string context. Thus, they are not returned. While the illegal output will not be returned, the functions will still be executed. For instance, a class method that returns an object can still be executed just fine with rah_function. There just won't be any output apart from an error message.
+
 h2. Function whitelisting
 
 p. For added optional security, certain functions can be explicitly whitelisted. If whitelisting option is defined, then only those whitelisted functions can be called with a rah_function tag.
