@@ -123,6 +123,35 @@ p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will 
 
 p. Discarding is done to prevent issues. The types that are not returned do not translate to the markup language, and are not usable in string context. Thus, they are not returned. While the illegal output will not be returned, the functions will still be executed. For instance, a class method that returns an object can still be executed just fine with rah_function. There just won't be any output apart from an error message.
 
+h2. Advanced casting and special attribute prefixes
+
+p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute, allow to cast the values to different types before they are passed to the called function as arguments.
+
+p. These prefixes are @_bool@, @_null@, @_int@ and @_serialized@.
+
+bc. <txp:rah_function call="substr" string="Hello World" _intstart="0" _intend="3" />
+
+p. If any of the tag attributes is prefixed with @_bool@, the value is converted to a boolean type. The value is converted to @FALSE@ if it is empty (@""@), @0@ or uppercase string @FALSE@. If anything else, it becomes @TRUE@.
+
+bc. <txp:rah_function call="function" _boolsilent="I become TRUE" _boolfalse="FALSE" />
+
+p. Prefix @_null@ converts the value to NULL, no matter what the original value is.
+
+bc. <txp:rah_function call="function" _nullvalue="NULL and do not care" />
+
+p. The prefix @_int@ converts the value to integer, ensuring that the value is a safe, valid integer. Numeric values will be rounded towards zero, and non-numerical strings will be converted by the initial portion of the string. If the attribute value starts with valid numeric data, this will be used as the value. Otherwise, the value becomes @0@ (zero).
+
+bc. <txp:rah_function call="function" _intid="I will be zero" _intnumericval="247" />
+
+p. Last @_serialized@, a special type of prefix. Unlike others, it doesn't cast or convert values to different types. As mentioned previously in _Returned values and legal types_ section, returned arrays are converted and returned as serialized byte-stream representations.
+
+p. The @_serialized@ prefix allows using these serialized values again in a rah_function tags. This allows using arrays as tag attributes.
+
+bc. <txp:rah_function call="implode" delim=", "  
+	_serialized_value='<txp:rah_function call="explode" delim="|" r="value1|value2|value3" />' />
+
+p. In the above "explode":http://php.net/manual/en/function.explode.php would return an serialized array after splitting the string into peaces by @|@. That serialized value would be returned to "implode":http://php.net/manual/en/function.implode.php which then converts that array to a string, each value separated by a comma.
+
 h2. Function whitelisting
 
 p. For added optional security, certain functions can be explicitly whitelisted. If whitelisting option is defined, then only those whitelisted functions can be called with a rah_function tag.
