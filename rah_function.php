@@ -66,6 +66,10 @@
 			elseif(strpos($name, '_int') === 0) {
 				$atts[$name] = (int) $value;
 			}
+			
+			elseif(strpos($name, '_null') === 0) {
+				$atts[$name] = NULL;
+			}
 		}
 		
 		if($thing !== NULL) {
