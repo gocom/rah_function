@@ -212,6 +212,18 @@ bc. <txp:rah_function call="trim" charlist="H">
 
 p. Returns: @ello world!@
 
+h3. Generating valid JavaScript array
+
+p. The following example generates a valid "Javascript Array":https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array from a comma-separated list of values. It does that by taking advantage of rah_function's multi-function feature and uses PHP's "json_encode":http://php.net/manual/en/function.json-encode.php and Textpattern's do_list functions.
+
+p. It first splits the string to a PHP array using do_list(). The do_list() will also take care of any white-space. It then converts that to a valid JSON representation using json_encode.
+
+bc. <txp:rah_function call="do_list, json_encode">
+	value1, value2, value3
+</txp:rah_function>
+
+p. Above returns @["value1","value2","value3"]@.
+
 h3. Returning time using safe_strftime()
 
 bc. <txp:rah_function call="safe_strftime">
