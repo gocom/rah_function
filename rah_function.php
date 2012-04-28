@@ -54,6 +54,8 @@
 				$value = $atts[$name] = parse($thing);
 				$thing = NULL;
 			}
+			
+			$value = trim($value);
 		
 			if(strpos($name, '_serialized') === 0 && in_array($value, $serialized)) {
 				$atts[$name] = unserialize($value);
