@@ -210,7 +210,7 @@ h4. Stripping zeros from the beginning
 
 p. Wrapped content is passed to ltrim, which is set to strip zeros (@0@) from the beginning of the string. Original value @000150@ is converted to @150@.
 
-bc. <txp:rah_function call="ltrim" strip="0">00015</txp:rah_function>
+bc. <txp:rah_function call="ltrim" strip="0">000150</txp:rah_function>
 
 h4. Stripping whitespace from the beginning and end
 
