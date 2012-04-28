@@ -133,9 +133,7 @@ bc. <txp:rah_function
 	_serializedAttr="serialized"
 />
 
-p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments.
-
-p. These special attribute prefixes are @_bool@, @_null@, @_int@ and @_serialized@.
+p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@ and @_serialized@.
 
 p. If a tag attribute is prefixed with @_bool@, the value is converted to a boolean type. The value is converted to @FALSE@ if it is empty (@""@), @0@ or uppercase string @FALSE@. If it's anything else, it becomes @TRUE@.
 
