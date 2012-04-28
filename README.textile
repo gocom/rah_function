@@ -246,11 +246,11 @@ bc. <txp:rah_function call="fetch" what="last_access" from="txp_users" where="us
 
 Returns: Last access time for site admin with user ID of 1.
 
-h3. Counting the amount of articles in the current section
+h3. Counting number of articles
 
 p. Counting is done with Textpattern's @safe_count()@ function.
 
-bc. <txp:rah_function call="safe_count" table="textpattern" where='Section="<txp:section />"' />
+bc. <txp:rah_function call="safe_count" table="textpattern" where="Status IN(4, 5)" />
 
 Returns: number of articles.
 
