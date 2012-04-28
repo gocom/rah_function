@@ -168,14 +168,6 @@ p. This whitelisting option is completely optional, and it doesn't need to be co
 
 h2. Examples
 
-h3. Basic usage of base64_encode as a container
-
-bc. <txp:rah_function call="base64_encode">
-	Hello world!
-</txp:rah_function>
-
-p. Returns base64 encoded string: @DQoJSGVsbG8gd29ybGQhDQo=@
-
 h3. Replacing content using str_replace in a single tag mode
 
 bc. <txp:rah_function call="str_replace" search="Hello" replace="Hi" subject="Hello world!" />
