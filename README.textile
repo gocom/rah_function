@@ -204,9 +204,7 @@ p. Above would return HTTP GET/POST param's, named @theme@, value. If requested 
 
 h3. Removing appending and prepending whitespace or other characters
 
-p. PHP comes with couple useful functions for removing whitespace and other characters from the beginning and end of a string: "trim":http://php.net/manual/en/function.trim.php, "ltrim":http://php.net/manual/en/function.ltrim.php and "rtrim.":http://php.net/manual/en/function.rtrim.php Trim removes designed characters from both ends, while ltrim only touches beginning and rtrim() wants to be all rightful.
-
-p. All three can take up to two arguments. First for the string will will trimmed, and the second, list of character that are stripped. If no characters are provided, white-space is stripped.
+p. PHP comes with couple useful functions for removing whitespace and other characters from the beginning and end of a string: "trim":http://php.net/manual/en/function.trim.php, "ltrim":http://php.net/manual/en/function.ltrim.php and "rtrim.":http://php.net/manual/en/function.rtrim.php Trim removes characters from both ends, while ltrim only touches beginning and rtrim() wants to be all rightful. All three can take up to two arguments. First one is string will will trimmed, and the second, list of character that are stripped. If no characters are specified, white-space is stripped.
 
 h4. Stripping zeros from the beginning
 
