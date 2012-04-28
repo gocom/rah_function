@@ -54,17 +54,40 @@ h3. As a container
 
 p. The tag supports both a container and self-closing usage. If the tag is used in a container format, the contained statement is used in the parameter position specified with the tag's @thing="here"@ attribute. If @thing@ attribute is undefined, contained statement is used as the PHP function's first parameter.
 
-bc. <txp:rah_function call="str_replace" from="Hi" to="Hello" thing="here">
-	Hi World!
+bc. <txp:rah_function call="str_replace" from="Hello" to="Hi" thing="here">
+	Hello World!
 </txp:rah_function>
 
 p. In the snippet above, the contained statement @Hi World!@ is used as "str_replace":http://php.net/manual/en/function.str-replace.php function's third parameter as that is where the @thing="here"@ is. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be used as first argument, leading to different results.
 
-bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
-	Hi World!
+bc. <txp:rah_function call="str_replace" from="Hello" to="Hi">
+	Hello World!
 </txp:rah_function>
 
 p. Still looks pretty much the same. But unlike previously with @thing@, now the tag returns @Hello@. Instead of the @to@ attribute, the contained statement would be used the searched needle in str_replace.
+
+h3. As a self-closing
+
+p. A container translates seamlessly to a singular self-closing tag. The contained statement is just a function parameter as tag attributes, and as such, can be substituted with a tag attribute. Following does exactly same thing as the previous str_replace examples that used containers.
+
+bc. <txp:rah_function 
+	call="str_replace" 
+	from="Hi" 
+	to="Hello" 
+	string="Hi World!" 
+/>
+
+p. Both of the two following "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php uses do the same thing, but with different syntaxes. As a self-closing tag the sanitized string would be passed to the function as a tag attribute.
+
+bc. <txp:rah_function call="htmlspecialchars" string="<p>Hello World!</p>" />
+
+p. But that string can also be passed as a contained statement. As the string is htmlspecialchars function's first parameter, the tag doesn't need @thing@ attribute.
+
+bc. <txp:rah_function call="htmlspecialchars">
+	<p>Hello World!</p>
+</txp:rah_function>
+
+p. Gives a relatively readable formatting and avoids "quote escaping":http://textpattern.net/wiki/index.php?title=Parsing_Tag_Attributes that comes with tag attributes.
 
 h3. Extra attributes and function parameters
 
