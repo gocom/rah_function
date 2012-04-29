@@ -107,13 +107,13 @@ bc. <txp:rah_function call="strip_tags, trim">
 	<p>Some markup to strip and surrounding white-space to trim.</p>
 </txp:rah_function>
 
-p. Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php would be run first, and its output would be then passed to "trim.":http://php.net/manual/en/function.trim.php
+p. Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php is ran first, and its output is then passed to "trim.":http://php.net/manual/en/function.trim.php
 
-p. The first function in the list acts as the primary. The first function's output is passed by reference to following functions, and all tag attributes only apply to it.
+p. The first function in the list acts as the primary. The first function's output is passed by reference to following functions, and all tag attributes only apply to it. Second or later functions do not get passed any attributes, and the passed output from the first function is assigned as functions' first parameter.
 
-p. Second or later functions do not get passed any attributes, and the passed output from the first function is assigned as functions' first parameter. Calling multiple functions works only if the following functions expect a single parameter. If the following functions require more than a one parameter, more than one @<txp:rah_function />@ tag is needed.
+p. Calling multiple functions works only if the following functions expect a single parameter. If the following functions require more than a one parameter, more than one @<txp:rah_function />@ tag is needed.
 
-p. For example calling both "str_replace":http://www.php.net/manual/en/function.str-replace.php and "substr":http://www.php.net/manual/en/function.substr.php would require two tags as both require two or more parameters.
+p. Calling both "str_replace":http://www.php.net/manual/en/function.str-replace.php and "substr":http://www.php.net/manual/en/function.substr.php would require two tags as both require two or more parameters.
 
 bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
 	<txp:rah_function call="substr" string="Hello World!" start="0" end=7" />
@@ -121,13 +121,13 @@ bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
 
 h2. Returned values and legal types
 
-p. Due the way how Textpattern's template language and PHP work, not every function's output can be returned to the template in their original format. The limitation comes in form of "types.":http://php.net/manual/en/language.types.php
+p. Due the way how Textpattern's template language and PHP works, not every function's output can be returned to the template in their original format. The limitation comes in the form of "types.":http://php.net/manual/en/language.types.php
 
 p. Textpattern's markup language expects strings, and that is what we must give it. Rah_function returns values of types _integer_, _float_ and _string_ to the template as is, in their true presentation, with the expectation that the returned type is converted to a string by Textpattern.
 
 p. Last from the scalars, boolean, is converted to a uppercase string @TRUE@ and @FALSE@. This is for allow detecting an empty string (@""@), numbers @1@, @0@ and booleans from each other. Otherwise in Textpattern's template context you would have no idea which is which.
 
-p. For instance PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero (@0@), or a boolean @FALSE@, when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
+p. For instance PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero (@0@), or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
 
 bc. <txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>
 
