@@ -10,7 +10,8 @@ h2. List of features
 
 h2. Requirements
 
-* Textpattern 4.0.7 or newer.
+* Textpattern v4.0.7 or newer.
+* PHP 5.2 or newer.
 
 h2. Installation
 
@@ -177,15 +178,33 @@ bc. <txp:rah_function call="implode" delim=", "
 
 p. In the above "explode":http://php.net/manual/en/function.explode.php would return an serialized array after splitting the string into peaces by @|@. That serialized value would be returned to "implode":http://php.net/manual/en/function.implode.php which then converts that array to a string, each value separated by a comma. Converting initial value of @value1|value2|value3@ to @value1, value2, value3@.
 
-h2. Function whitelisting
+h2. Security related features
+
+p. Considering the plugin's nature, it comes with few options to limit its access to and where the tag can be used. The plugin has a whitelisting option for enabling only certain functions, and it follows Textpattern's PHP evaluation rules and user privileges, the same rules that affect "php":http://textpattern.net/wiki/index.php?title=php tags.
+
+h3. Privileges in articles
+
+p. User group privileges limit which users can use @<txp:rah_function />@ tags within articles. Only user-groups that have privileges granted to @article.php@ level can use the tags in article body, custom fields or excerpt. By default only the two highest groups, Publishers and Managing Editors (group with ID 1 and 2) have access to @article.php@, and can publish article's with the plugin's tags in them.
+
+* "Modifying User Account Roles and Privileges.":http://textpattern.net/wiki/index.php?title=Modifying_User_Account_Roles_and_Privileges
+* "Users":http://textpattern.net/wiki/index.php?title=Users
+* "User Roles and Permissions":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions
+
+h3. Advanced PHP preferences
+
+p. Rah_function follows the two PHP options that can be found from Textpattern's "Advanced Preferences":http://textpattern.net/wiki/index.php?title=Advanced_Preferences panel, *Allow PHP in pages* and *Allow PHP in articles*.
+
+p. When *Allow PHP in pages* option is disabled, @<txp:rah_function />@ tags can not be used within "page":http://textpattern.net/wiki/index.php?title=Pages and "form":http://textpattern.net/wiki/index.php?title=Forms templates. When *Allow PHP in articles* option is disabled, @<txp:rah_function />@ tags can not be used within articles. The tags won't be executed, no matter what permissions the article's author has.
+
+h3. Function whitelisting
 
 p. For added optional security, certain functions can be explicitly whitelisted. If whitelisting option is defined, then only those whitelisted functions can be called with a rah_function tag.
 
-p. Whitelisting options can be set from Textpattern's @config.php@ (e.g. /textpattern/config.php) file, and doesn't take more than adding a single line to it. Rah_function expects a constant named @rah_function_whitelist@, populated with comma-separated list of function names.
+p. Whitelisting options can be set from Textpattern's @config.php@ (e.g. /textpattern/config.php) file, and doesn't take more than adding a single line to it. Rah_function expects a constant named @rah_function_whitelist@, populated with comma-separated list of function names. Function names and class methods should be formatted in the same way as when used in rah_function tags @call@ attribute.
 
-bc. define('rah_function_whitelist', 'gps, ps, htmlspecialchars, str_replace');
+bc. define('rah_function_whitelist', 'gps, ps, htmlspecialchars, str_replace, Class::StaticMethod, Class->Method');
 
-p. Where @gps@, @ps@, @htmlspecialchars@ and @str_replace@ would be the allowed functions.
+p. Where @gps@, @ps@, @htmlspecialchars@, @str_replace@, @Class::StaticMethod@ and @Class::Method@  would be the allowed functions and class methods.
 
 p. This whitelisting option is completely optional, and it doesn't need to be configured. It should be only used if you want to enable only certain functions for added security.
 
