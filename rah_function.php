@@ -72,6 +72,10 @@
 			elseif(strpos($name, '_null') === 0) {
 				$atts[$name] = NULL;
 			}
+			
+			elseif(strpos($name, '_array') === 0) {
+				$atts[$name] = @json_decode($value);
+			}
 		}
 		
 		if($thing !== NULL) {
