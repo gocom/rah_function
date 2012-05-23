@@ -74,7 +74,7 @@
 			}
 			
 			elseif(strpos($name, '_array') === 0) {
-				$atts[$name] = @json_decode($value);
+				$atts[$name] = @json_decode($value, true);
 			}
 		}
 		
