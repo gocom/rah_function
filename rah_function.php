@@ -74,7 +74,13 @@
 			}
 			
 			elseif(strpos($name, '_array') === 0) {
-				$atts[$name] = @json_decode($value, true);
+				
+				$atts[$name] = $value === '' ? array() : @json_decode($value, true);
+				
+				if(!is_array($atts[$name])) {
+					trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
+					return;
+				}
 			}
 		}
 		
