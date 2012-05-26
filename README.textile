@@ -155,21 +155,26 @@ bc. <txp:rah_function
 	_nullAttr="NULL"
 	_intAttr="integer"
 	_serializedAttr="serialized"
+	_arrayAttr="array"
 />
 
-p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@ and @_serialized@.
+p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@, @_array@ and @_serialized@.
 
 p. If a tag attribute is prefixed with @_bool@, the value is converted to a boolean type. The value is converted to @FALSE@ if it is empty (@""@), @0@ or uppercase string @FALSE@. If it's anything else, it becomes @TRUE@.
 
 bc. <txp:rah_function call="function" _boolsilent="I become TRUE" _boolfalse="FALSE" />
 
-p. Prefix @_null@ converts the value to NULL, no matter what the original value is.
+p. The @_null@ prefix converts the value to NULL, no matter what the supplied value is.
 
-bc. <txp:rah_function call="function" _nullvalue="NULL and do not care" />
+bc. <txp:rah_function call="function" _nullvalue="Always NULL, no matter what" />
 
-p. The prefix @_int@ converts the value to integer, ensuring that the value is a safe, valid integer. Numeric values will be rounded towards zero, and non-numerical strings will be converted based on the initial portion of the string. If the attribute value starts with valid numeric data, this will be used as the value. Otherwise, the value becomes @0@ (zero).
+p. The @_int@ prefix converts the value to integer, ensuring that the value is a safe, valid integer. Numeric values will be rounded towards zero, and non-numerical strings will be converted based on the initial portion of the string. If the attribute value starts with valid numeric data, this will be used as the value. Otherwise, the value becomes @0@ (zero).
 
 bc. <txp:rah_function call="function" _intid="I will be zero" _intnumericval="247" />
+
+p. The @_array@ prefix is used to generate and pass arrays. An attribute prefixed with an @_array@ take a "JSON":http://json.org/ string (JavaScript Object Notation) and convert it to a PHP's array.
+
+bc. <txp:rah_function call="implode" _arrayValue="[1, 2, 3]" />
 
 p. Last is @_serialized@, a special type of prefix. Unlike others, it doesn't cast or convert values to different types. As mentioned previously in _Returned values and legal types_ section, arrays are converted and returned as serialized byte-stream representations. The @_serialized@ prefix allows using these serialized values again in a rah_function tag.
 
