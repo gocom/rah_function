@@ -16,7 +16,7 @@
 	function rah_function($atts, $thing=NULL) {
 		
 		global $prefs, $is_article_body, $thisarticle;
-		static $serialized = array(), $whitelist = NULL;
+		static $whitelist = NULL;
 		
 		if($whitelist === NULL) {
 			$whitelist = defined('rah_function_whitelist') ? 
@@ -56,12 +56,8 @@
 			}
 			
 			$value = trim($value);
-		
-			if(strpos($name, '_serialized') === 0 && in_array($value, $serialized)) {
-				$atts[$name] = unserialize($value);
-			}
 			
-			elseif(strpos($name, '_bool') === 0) {
+			if(strpos($name, '_bool') === 0) {
 				$atts[$name] = $value && $value != 'FALSE';
 			}
 			
@@ -122,8 +118,7 @@
 		}
 		
 		elseif(is_array($atts)) {
-			$atts = serialize($atts);
-			$serialized[] = $atts;
+			$atts = json_encode($atts);
 		}
 		
 		return $atts;

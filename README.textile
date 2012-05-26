@@ -144,7 +144,7 @@ bc.. <txp:variable
 	First match at <txp:variable name="matches" />
 </txp:if_variable>
 
-p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "serialized":http://php.net/manual/en/function.serialize.php byte-stream representations. Rest of types including object, resource, NULL and callable will be discarded and a notice will be issued.
+p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "JSON":http://php.net/manual/en/function.json-encode.php representations. Rest of types including object, resource, NULL and callable will be discarded and a notice will be issued.
 
 p. Discarding is done to prevent issues. The types that are not returned do not translate to the markup language, and are not usable in string context. Thus, they are not returned. While the illegal output will not be returned, the functions will still be executed. For instance, a class method that returns an object can still be executed just fine with rah_function. There just won't be any output apart from an error message.
 
@@ -154,11 +154,10 @@ bc. <txp:rah_function
 	_boolAttr="boolean"
 	_nullAttr="NULL"
 	_intAttr="integer"
-	_serializedAttr="serialized"
 	_arrayAttr="array"
 />
 
-p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@, @_array@ and @_serialized@.
+p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@ and @_array@.
 
 p. If a tag attribute is prefixed with @_bool@, the value is converted to a boolean type. The value is converted to @FALSE@ if it is empty (@""@), @0@ or uppercase string @FALSE@. If it's anything else, it becomes @TRUE@.
 
@@ -175,13 +174,6 @@ bc. <txp:rah_function call="function" _intid="I will be zero" _intnumericval="24
 p. The @_array@ prefix is used to generate and pass arrays. An attribute prefixed with an @_array@ take a "JSON":http://json.org/ string (JavaScript Object Notation) and convert it to a PHP's array.
 
 bc. <txp:rah_function call="implode" _arrayValue="[1, 2, 3]" />
-
-p. Last is @_serialized@, a special type of prefix. Unlike others, it doesn't cast or convert values to different types. As mentioned previously in _Returned values and legal types_ section, arrays are converted and returned as serialized byte-stream representations. The @_serialized@ prefix allows using these serialized values again in a rah_function tag.
-
-bc. <txp:rah_function call="implode" delim=", "  
-	_serialized_value='<txp:rah_function call="explode" delim="|" r="value1|value2|value3" />' />
-
-p. In the above "explode":http://php.net/manual/en/function.explode.php would return an serialized array after splitting the string into peaces by @|@. That serialized value would be returned to "implode":http://php.net/manual/en/function.implode.php which then converts that array to a string, each value separated by a comma. Converting initial value of @value1|value2|value3@ to @value1, value2, value3@.
 
 h2. Security related features
 
@@ -299,9 +291,8 @@ h3. Version 0.5 - upcoming
 
 * Added: Ability to call class methods (@call="Class->Method"@ and @call="Class::StaticMethod"@).
 * Added: Multiple functions can be called with a single tag instance (@call="func1, func2, func3"@). Output is passed by reference from function to function. First function in the list is treated as the primary and given tag attributes only apply to it.
-* Added: Arrays are returned as serialized string and can be passed from one tag instance to other. Serialized output can be extracted by prefixing used tag attribute name with @_serialized@.
+* Added: Arrays are returned as JSON string and can be passed from one tag instance to other. JSON can be used as a value by prefixing used tag attribute name with @_array@.
 * Added: Converts returned booleans to uppercase strings, @TRUE@ and @FALSE@. This makes it possible to identify integers from booleans (e.g. strpos).
-* Added: Return arrays as serialized strings.
 * Added: Function whitelisting option.
 * Improved: Prevent passing non-scalars to the template.
 * Improved: Moved away from sanitization and @eval()@.
