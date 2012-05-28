@@ -18,12 +18,17 @@
 		global $prefs, $is_article_body, $thisarticle;
 		static $whitelist = NULL;
 		
+		extract(lAtts(array(
+			'call' => NULL,
+			'is' => NULL,
+		), $atts, 0));
+		
 		if($whitelist === NULL) {
 			$whitelist = defined('rah_function_whitelist') ? 
 				do_list(rah_function_whitelist) : array();
 		}
 		
-		if(empty($atts['call'])) {
+		if(!$call) {
 			trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
 			return;
 		}
@@ -41,8 +46,7 @@
 			return;
 		}
 
-		$function = $atts['call'];
-		unset($atts['call']);
+		unset($atts['call'], $atts['is']);
 		
 		foreach($atts as $name => $value) {
 			
@@ -50,7 +54,7 @@
 				continue;
 			}
 			
-			if($thing !== NULL && substr($name, -5) == 'thing') {
+			if($thing !== NULL && substr($name, -5) == 'thing' && $is === NULL) {
 				$value = $atts[$name] = parse($thing);
 				$thing = NULL;
 			}
@@ -80,45 +84,49 @@
 			}
 		}
 		
-		if($thing !== NULL) {
+		if($thing !== NULL && $is === NULL) {
 			array_unshift($atts, parse($thing));
 		}
 		
-		foreach(do_list($function) as $index => $name) {
+		foreach(do_list($call) as $index => $name) {
 			
-			$call = $name;
+			$f = $name;
 			
-			if(strpos($call, '::')) {
-				$call = explode('::', $call);
+			if(strpos($f, '::')) {
+				$f = explode('::', $f);
 			}
 			
-			elseif(strpos($call, '->')) {
-				$call = explode('->', $call);
+			elseif(strpos($f, '->')) {
+				$f = explode('->', $f);
 				
-				if(class_exists($call[0])) {
-					$call[0] = new $call[0];
+				if(class_exists($f[0])) {
+					$f[0] = new $f[0];
 				}
 			}
 			
-			if(!is_callable($call) || ($whitelist && !in_array($name, $whitelist))) {
+			if(!is_callable($f) || ($whitelist && !in_array($name, $whitelist))) {
 				trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
 				return;
 			}
 			
-			$atts = call_user_func_array($call, !$index ? $atts : array($atts));
+			$atts = call_user_func_array($f, !$index ? $atts : array($atts));
 		}
 		
 		if(!is_scalar($atts) && !is_array($atts)) {
 			trigger_error(gTxt('rah_function_illegal_type', array('{type}' => gettype($atts))));
-			return;
+			$atts = '';
 		}
 		
-		if(is_bool($atts)) {
+		elseif(is_bool($atts)) {
 			$atts = $atts ? 'TRUE' : 'FALSE';
 		}
 		
 		elseif(is_array($atts)) {
 			$atts = json_encode($atts);
+		}
+		
+		if($is !== NULL && $thing !== NULL) {
+			return parse(EvalElse($thing, $atts === $is));
 		}
 		
 		return $atts;
