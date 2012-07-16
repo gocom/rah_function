@@ -51,8 +51,12 @@ p. *thing*
 Chooses the argument place for a container tag's contained statement. If a @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
+p. *_is*
+Converts the tag into a "conditional":http://textpattern.net/wiki/index.php?title=Self-closed_versus_Container_Tags. If set, the tag's results are compared against the @_is@ attribute's value. If they match, the tag's contained statement is shown.
+Example: @_is="FALSE"@ Default: _undefined_
+
 p. *parameter1="" , parameter2="" , parameter3="",[..]*
-Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@ and @call@ are reserved.
+Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@, @is@ and @call@ are reserved.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
 h2. Tag attributes are function parameters
