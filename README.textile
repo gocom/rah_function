@@ -33,37 +33,33 @@ bc. <txp:rah_function call="function" thing="here" parameter1="value" parameter2
 	Contained statement
 </txp:rah_function>
 
-p. The plugin introduces a new tag @<txp:rah_function />@ to Textpattern arsenal. It's a multi-purpose tag that enables use of public PHP functions and methods as Textpattern tags.
+p. The plugin introduces @<txp:rah_function />@ tag to Textpattern's arsenal. It's a multi-purpose tag that enables using public PHP functions and methods as Textpattern tags.
 
-p. Rah_function tag is almost like a bridge between PHP and Textpattern's tag syntax. It allows calling almost any PHP function as a Textpattern tag. Want to encode something? You can. Want use PHP's string functions to truncate, count or otherwise bend strings at your will? You can. All without needing to write any code for new tags or add raw PHP blocks in page templates.
+p. Rah_function is almost like a bridge between PHP and Textpattern's tag syntax. It allows calling almost any PHP function as a Textpattern tag. Want to encode something? You can. Want use PHP's string functions to truncate, count or otherwise bend strings at your will? You can. All without needing to write any code for new tags or add raw PHP blocks in page templates.
 
-p. The tag takes @call@ attribute which sets the function that is called by the tag. All other attributes, apart from @thing@, used in the tag are passes to the called function as its arguments. The tag then processes the request and returns results.
+p. The tag takes a @call@ attribute which sets the function that is called by the tag. Apart from a @thing@, all attributes used in a tag are passes to the called PHP function as its arguments. The tag then processes the request and returns results.
 
 h2. Tag attributes
 
-bc. <txp:rah_function call="function" thing="here" parameter1="value" parameter2="value">
-	Contained statement
-</txp:rah_function>
-
-p. The plugin introduces a new tag, @<txp:rah_function />@. It's a multi-purpose tag that allows to use public PHP functions and methods as Textpattern tags. The tag can be used both as container and in self-closing mode. Attributes for the are as follows.
+p. Attributes for @<txp:rah_function />@ are as follows.
 
 p. *call*
-The name of the function or class method you want to use with the tag. Comma-separated if multiple. This attribute is required.
+ Name of the function or the class method you want to use with the tag. Comma-separated if multiple. This attribute is required.
 Example: @call="base64_encode"@ Default: @""@
 
 p. *thing*
-With thing you can choose the argument place for container mode's contained statement. For example, if @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
+Chooses the argument place for a container tag's contained statement. If a @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
 p. *parameter1="" , parameter2="" , parameter3="",[..]*
-Zero or more parameters passed to the called function as arguments. Theses additional tag attributes can be named anything. The parameters are assigned to the function in the order they are defined in the tag.
+Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@ and @call@ are reserved.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
 h2. Tag attributes are function parameters
 
 p. Apart from tag's own reserved attributes, @thing@ and @call@, all attributes are passed to the called function as arguments in the order the attributes are defined. If no additional attributes are used, then the called PHP function is used as is without arguments.
 
-p. When calling "md5":http://php.net/manual/en/function.md5.php, the first attribute would be used as the string from which the hash is calculated.
+p. When calling "md5":http://php.net/manual/en/function.md5.php, the first attribute would be used as the string from which a hash is calculated.
 
 bc. <txp:rah_function call="md5" str="apple" />
 
@@ -75,7 +71,7 @@ p. Rah_function supports both container and self-closing single tag use.
 
 h3. As a container
 
-p. The tag supports both a container and self-closing usage. If the tag is used in a container format, the contained statement is used in the parameter position specified with the tag's @thing="here"@ attribute. If @thing@ attribute is undefined, contained statement is used as the PHP function's first parameter.
+p. The tag supports both a container and self-closing usage. If the tag is used as container tag, the contained statement is used in the parameter position specified with the tag's @thing="here"@ attribute. If @thing@ attribute is undefined, contained statement is used as the PHP function's first parameter.
 
 bc. <txp:rah_function call="str_replace" from="Hello" to="Hi" thing="here">
 	Hello World!
@@ -87,11 +83,11 @@ bc. <txp:rah_function call="str_replace" from="Hello" to="Hi">
 	Hello World!
 </txp:rah_function>
 
-p. Still looks pretty much the same. But unlike previously with @thing@, now the tag returns @Hello@. Instead of the @to@ attribute, the contained statement would be used the searched needle in str_replace.
+p. Still looks pretty much the same. But unlike previously when @thing@ was used, now the tag returns @Hello@. Instead of the @to@ attribute, the contained statement would be used as the searched needle in str_replace.
 
 h3. As a self-closing
 
-p. A container translates seamlessly to a singular self-closing tag. The contained statement is just a function parameter as tag attributes, and as such, can be substituted with a tag attribute. Following does exactly same thing as the previous str_replace examples that used containers.
+p. A container translates seamlessly to a singular self-closing tag. The contained statement is a function parameter just like tag attributes, and as such, can be substituted with a tag attribute. Following does exactly same thing as the previous str_replace examples that used containers.
 
 bc. <txp:rah_function 
 	call="str_replace" 
@@ -100,29 +96,29 @@ bc. <txp:rah_function
 	string="Hi World!" 
 />
 
-p. Both of the two following "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php uses do the same thing, but with different syntaxes. As a self-closing tag the sanitized string would be passed to the function as a tag attribute.
+p. These two "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php snippets give same results, but do it with different syntaxes. As a self-closing tag a string would be passed to the function as a tag attribute.
 
-bc. <txp:rah_function call="htmlspecialchars" string="<p>Hello World!</p>" />
+bc. <txp:rah_function call="htmlspecialchars" string="<p class=""msg"">Hello World!</p>" />
 
 p. But that string can also be passed as a contained statement. As the string is htmlspecialchars function's first parameter, the tag doesn't need @thing@ attribute.
 
 bc. <txp:rah_function call="htmlspecialchars">
-	<p>Hello World!</p>
+	<p class="msg">Hello World!</p>
 </txp:rah_function>
 
 p. Gives a relatively readable formatting and avoids "quote escaping":http://textpattern.net/wiki/index.php?title=Parsing_Tag_Attributes that comes with tag attributes.
 
 h2. Calling multiple functions at once
 
-p. Since version 0.5, a single tag can call multiple functions. This allows to further process output returned by a function with second or more functions. Calling multiple functions with a single tag instance is done by simply using comma-separated (@,@) list of functions in the @call@ attribute.
+p. Since version 0.5, a single tag can call multiple functions. This allows to further process output returned by a function with a second or more functions. Calling multiple functions with a single tag instance is done by simply using comma-separated (@,@) list of functions in the @call@ attribute.
 
 bc. <txp:rah_function call="strip_tags, trim">
-	<p>Some markup to strip and surrounding white-space to trim.</p>
+	<p>Some markup to <strong>strip</strong> and surrounding white-space to trim.</p>
 </txp:rah_function>
 
-p. Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php is ran first, and its output is then passed to "trim.":http://php.net/manual/en/function.trim.php
+p. Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php is ran first and its output is then passed to "trim":http://php.net/manual/en/function.trim.php.
 
-p. The first function in the list acts as the primary. The first function's output is passed by reference to following functions, and all tag attributes only apply to it. Second or later functions do not get passed any attributes, and the passed output from the first function is assigned as functions' first parameter.
+p. The first function in the list acts as the primary. The first function's output is passed by reference to following functions and all tag attributes only apply to it. Second or later functions do not get passed any attributes and the passed output from the first function is assigned as functions' first parameter.
 
 p. Calling multiple functions works only if the following functions expect a single parameter. If the following functions require more than a one parameter, more than one @<txp:rah_function />@ tag is needed.
 
@@ -134,13 +130,17 @@ bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
 
 h2. Returned values and legal types
 
-p. Due the way how Textpattern's template language and PHP works, not every function's output can be returned to the template in their original format. The limitation comes in the form of "types.":http://php.net/manual/en/language.types.php
+p. Due the way how Textpattern's template language and PHP works, not every function's output can be returned to the template in their original format. The limitation comes in the form of "types":http://php.net/manual/en/language.types.php.
+
+h3. Integers, floats and strings
 
 p. Textpattern's markup language expects strings, and that is what we must give it. Rah_function returns values of types _integer_, _float_ and _string_ to the template as is, in their true presentation, with the expectation that the returned type is converted to a string by Textpattern.
 
+h3. Booleans
+
 p. Last from the scalars, boolean, is converted to a uppercase string @TRUE@ and @FALSE@. This is for allow detecting an empty string (@""@), numbers @1@, @0@ and booleans from each other. Otherwise in Textpattern's template context you would have no idea which is which.
 
-p. For instance PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero (@0@), or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
+p. For instance PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
 
 bc. <txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>
 
@@ -156,9 +156,19 @@ bc.. <txp:variable
 	First match at <txp:variable name="matches" />
 </txp:if_variable>
 
-p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "JSON":http://php.net/manual/en/function.json-encode.php representations. Rest of types including object, resource, NULL and callable will be discarded and a notice will be issued.
+h3. Arrays
 
-p. Discarding is done to prevent issues. The types that are not returned do not translate to the markup language, and are not usable in string context. Thus, they are not returned. While the illegal output will not be returned, the functions will still be executed. For instance, a class method that returns an object can still be executed just fine with rah_function. There just won't be any output apart from an error message.
+p. Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "JSON":http://php.net/manual/en/function.json-encode.php representations. Following snippet would split the list of values into an array.
+
+bc. <txp:rah_function call="explode" delimiter=", " values="value1, value2, value3" />
+
+p. The numeric array returned by "explode":http://php.net/manual/en/function.explode.php would be converted and returned as a literal JavaScript array.
+
+bc. ["value1","value2","value3"]
+
+h3. Discarded
+
+p. Rest of types including object, resource, NULL and callable will be discarded and a notice will be issued. Discarding is done to prevent issues. The types that are not returned do not translate to the markup language, and are not usable in string context. Thus, they are not returned. While the illegal output will not be returned, the functions will still be executed. For instance, a class method that returns an object can still be executed just fine with rah_function. There just won't be any output apart from an harmless, informative error message.
 
 h2. Type casting and special attribute prefixes
 
