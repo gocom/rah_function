@@ -59,7 +59,7 @@ p. *parameter1="" , parameter2="" , parameter3="",[..]*
 Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@ and @call@ are reserved.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
-h2. Tag attributes are function parameters
+h2. Function parameters
 
 p. Apart from tag's own reserved attributes, @thing@ and @call@, all attributes are passed to the called function as arguments in the order the attributes are defined. If no additional attributes are used, then the called PHP function is used as is without arguments.
 
@@ -111,6 +111,18 @@ bc. <txp:rah_function call="htmlspecialchars">
 </txp:rah_function>
 
 p. Gives a relatively readable formatting and avoids "quote escaping":http://textpattern.net/wiki/index.php?title=Parsing_Tag_Attributes that comes with tag attributes.
+
+h2. Conditionals
+
+p. A rah_function tag can transform into a conditional by applying @_is@ attribute. When @_is@ attribute is used, the tag's results are compared against the attribute's value. If they match, the tag's contained statement is shown. If compared values do not match, "else":http://textpattern.net/wiki/index.php?title=else statement is show if defined.
+
+bc. <txp:rah_function call="cs" name="theme" _is="blue">
+	Theme is set as blue.
+<txp:else />
+	No blue?
+</txp:rah_function>
+
+p. Above snippet checks if a HTTP cookie named @theme@ is set as @blue@.
 
 h2. Calling multiple functions at once
 
