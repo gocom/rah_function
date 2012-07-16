@@ -20,7 +20,7 @@
 		
 		extract(lAtts(array(
 			'call' => NULL,
-			'is' => NULL,
+			'returns' => NULL,
 		), $atts, 0));
 		
 		if($whitelist === NULL) {
@@ -46,7 +46,7 @@
 			return;
 		}
 
-		unset($atts['call'], $atts['is']);
+		unset($atts['call'], $atts['_is']);
 		
 		foreach($atts as $name => $value) {
 			
@@ -54,7 +54,7 @@
 				continue;
 			}
 			
-			if($thing !== NULL && substr($name, -5) == 'thing' && $is === NULL) {
+			if($thing !== NULL && substr($name, -5) == 'thing' && $returns === NULL) {
 				$value = $atts[$name] = parse($thing);
 				$thing = NULL;
 			}
@@ -84,7 +84,7 @@
 			}
 		}
 		
-		if($thing !== NULL && $is === NULL) {
+		if($thing !== NULL && $returns === NULL) {
 			array_unshift($atts, parse($thing));
 		}
 		
@@ -125,8 +125,8 @@
 			$atts = json_encode($atts);
 		}
 		
-		if($is !== NULL && $thing !== NULL) {
-			return parse(EvalElse($thing, $atts === $is));
+		if($returns !== NULL && $thing !== NULL) {
+			return parse(EvalElse($thing, $atts === $returns));
 		}
 		
 		return $atts;
