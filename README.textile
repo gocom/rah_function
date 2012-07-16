@@ -122,7 +122,7 @@ bc. <txp:rah_function call="cs" name="theme" _is="blue">
 	No blue?
 </txp:rah_function>
 
-p. Above snippet checks if a HTTP cookie named @theme@ is set as @blue@.
+p. Above snippet checks if a HTTP cookie named @theme@ is set as @blue@.
 
 h2. Calling multiple functions at once
 
