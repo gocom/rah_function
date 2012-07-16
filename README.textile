@@ -197,17 +197,25 @@ bc. <txp:rah_function
 
 p. To get around template languages type juggling limitations, rah_function packs a couple special attribute prefixes. These prefixes can be added before tag attribute names, allowing to cast values to different types before passing the attributes to the called function as arguments. These special attribute prefixes are @_bool@, @_null@, @_int@ and @_array@.
 
+h3. _bool
+
 p. If a tag attribute is prefixed with @_bool@, the value is converted to a boolean type. The value is converted to @FALSE@ if it is empty (@""@), @0@ or uppercase string @FALSE@. If it's anything else, it becomes @TRUE@.
 
 bc. <txp:rah_function call="function" _boolsilent="I become TRUE" _boolfalse="FALSE" />
+
+h3. _null
 
 p. The @_null@ prefix converts the value to NULL, no matter what the supplied value is.
 
 bc. <txp:rah_function call="function" _nullvalue="Always NULL, no matter what" />
 
+h3. _int
+
 p. The @_int@ prefix converts the value to integer, ensuring that the value is a safe, valid integer. Numeric values will be rounded towards zero, and non-numerical strings will be converted based on the initial portion of the string. If the attribute value starts with valid numeric data, this will be used as the value. Otherwise, the value becomes @0@ (zero).
 
 bc. <txp:rah_function call="function" _intid="I will be zero" _intnumericval="247" />
+
+h3. _array
 
 p. The @_array@ prefix is used to generate and pass arrays. An attribute prefixed with an @_array@ take a "JSON":http://json.org/ string (JavaScript Object Notation) and convert it to a PHP's array.
 
