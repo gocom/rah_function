@@ -34,15 +34,19 @@
 		}
 		
 		if($is_article_body) {
-			if(
-				!$prefs['allow_article_php_scripting'] ||
-				!has_privs('article.php', $thisarticle['authorid'])
-			) {
+			if(!$prefs['allow_article_php_scripting']) {
+				trigger_error(gTxt('php_code_disabled_article'));
+				return;
+			}
+			
+			if(!has_privs('article.php', $thisarticle['authorid'])) {
+				trigger_error(gTxt('php_code_forbidden_user'));
 				return;
 			}
 		}
 		
 		elseif(!$prefs['allow_page_php_scripting']) {
+			trigger_error(gTxt('php_code_disabled_page'));
 			return;
 		}
 
