@@ -1,10 +1,10 @@
 h1. rah_function
 
-p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- only thing you need is a XML like tag.
+p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- the only thing you need is a XML like tag.
 
 h2. List of features
 
-* Call any PHP function with a single Textpattern tag.
+* Use any PHP function with a single Textpattern tag.
 * Freely use function's attributes, flags and parameters.
 * Supports both a container and a single tag format.
 
@@ -22,7 +22,7 @@ p. Rah_function's installation follows the usual standard plugin installation st
 # Run the automated setup.
 # After the setup is done, activate the plugin. Done.
 
-p. The plugin respects Textpattern's scripting preferences. After installation make sure that you have allowed PHP scripting:
+p. The plugin respects Textpattern's scripting preferences. After installation make sure that you have clicked to allow PHP scripting in the Textpattern's scripting preferences:
 
 # Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
 # Toggle allow on PHP scripting for Pages and Articles (or for where you want to use the plugin).
@@ -33,22 +33,22 @@ bc. <txp:rah_function call="function" thing="here" parameter1="value" parameter2
 	Contained statement
 </txp:rah_function>
 
-p. The plugin introduces @<txp:rah_function />@ tag to Textpattern's arsenal. It's a multi-purpose tag that enables using public PHP functions and methods as Textpattern tags.
+p. The plugin introduces @<txp:rah_function />@ tag to Textpattern's arsenal. It's a multi-purpose tag that enables the use of public PHP functions and methods as Textpattern tags.
 
-p. Rah_function is almost like a bridge between PHP and Textpattern's tag syntax. It allows calling almost any PHP function as a Textpattern tag. Want to encode something? You can. Want use PHP's string functions to truncate, count or otherwise bend strings at your will? You can. All without needing to write any code for new tags or add raw PHP blocks in page templates.
+p. Rah_function is almost like a bridge between PHP and Textpattern's tag syntax. It allows the use of almost any PHP function as a Textpattern tag. Want to encode something? You can. Want to use PHP's string functions to truncate, count or otherwise bend strings at your will? You can. All without needing to write any code for new tags or add raw PHP blocks in page templates or articles.
 
-p. The tag takes a @call@ attribute which sets the function that is called by the tag. Apart from a @thing@, all attributes used in a tag are passes to the called PHP function as its arguments. The tag then processes the request and returns results.
+p. The tag takes a @call@ attribute which sets the function that is used by the tag. Apart from a @thing@, all attributes used in a tag are passed to the used PHP function as its arguments. The tag then processes the request and returns results.
 
 h2. Tag attributes
 
 p. Attributes for @<txp:rah_function />@ are as follows.
 
 p. *call*
- Name of the function or the class method you want to use with the tag. Comma-separated if multiple. This attribute is required.
+Name of the function or the class method you want to use with the tag. Comma-separated if multiple. This attribute is required.
 Example: @call="base64_encode"@ Default: @""@
 
 p. *thing*
-Chooses the argument place for a container tag's contained statement. If a @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, contained statement is used as the first argument.
+Chooses the argument place for a container tag's contained statement. If @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument for the PHP function. If @thing@ is left undefined, the contained statement is used as the first argument.
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
 p. *_is*
@@ -56,7 +56,7 @@ Converts the tag into a "conditional":http://textpattern.net/wiki/index.php?titl
 Example: @_is="FALSE"@ Default: _undefined_
 
 p. *parameter1="" , parameter2="" , parameter3="",[..]*
-Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@ and @call@ are reserved.
+Parameters can be passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). Names @thing@ and @call@ are reserved.
 Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
 h2. Function parameters
