@@ -361,7 +361,7 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.5 - upcoming
+h3. Version 0.5 - 2012/07/19
 
 * Added: Ability to call class methods (@call="Class->Method"@ and @call="Class::StaticMethod"@).
 * Added: Multiple functions can be called with a single tag instance (@call="func1, func2, func3"@). Output is passed by reference from function to function. First function in the list is treated as the primary and given tag attributes only apply to it.
