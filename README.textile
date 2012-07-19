@@ -361,7 +361,7 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.6 - upcoming
+h3. Version 0.6 - 2012/07/19
 
 * Updated: Help file (readme). Thanks you, "Ralitza":http://www.inkscar.de/en/.
 
