@@ -1,5 +1,7 @@
 h1. rah_function
 
+p. "Project page":http://rahforum.biz/plugins/rah_function | "Twitter":http://twitter.com/gocom | "GitHub":https://github.com/gocom | "Support Forum":http://forum.textpattern.com/viewtopic.php?id=32389 | "Donate":http://rahforum.biz/donate/rah_function
+
 p. Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- the only thing you need is a XML like tag.
 
 h2. List of features
@@ -367,10 +369,9 @@ h3. Version 0.5 - upcoming
 * Added: Converts returned booleans to uppercase strings, @TRUE@ and @FALSE@. This makes it possible to identify integers from booleans (e.g. strpos).
 * Added: Function whitelisting option.
 * Improved: Prevent passing non-scalars to the template.
-* Improved: Moved away from sanitization and @eval()@.
+* Improved: Moved away from sanitization and @eval()@. Now uses callbacks.
 * Improved: Show some error messages when needed.
-* Updated: Code structure.
-* Updated: Help file (readme).
+* Updated: Help file (readme). Thanks to "Tye":https://github.com/aguatye for help.
 
 h3. Version 0.4 - 2011/12/16
 
