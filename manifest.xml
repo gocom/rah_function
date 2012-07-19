@@ -1,7 +1,7 @@
 <manifest>
 
 	<name>rah_function</name>
-	<description>Every function is a TXP tag</description>
+	<description>Every function is a Textpattern tag</description>
 	
 	<version>0.4</version>
 	<type>0</type>
