@@ -164,14 +164,21 @@ p. The last from the scalars, boolean, is converted to an uppercase string @TRUE
 
 p. For instance, PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
 
-bc. <txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>
+bc. <txp:rah_function
+	call="strpos"
+	value="ABC, zero or false?"
+	search="A"
+/>
 
 p. If no conversion was done, the above would return a zero/empty, but so it would act as if there were no matches. Through the conversion, the position and boolean are distinguishable.
 
-bc.. <txp:variable
-	name="matches"
-	value='<txp:rah_function call="strpos" search="A">ABC, zero or false?</txp:rah_function>'
+bc.. <txp:rah_function
+	call="strpos"
+	value="ABC, zero or false?"
+	search="A"
+	_assign="matches"
 />
+
 <txp:if_variable name="matches" value="FALSE">
 	No matches.
 <txp:else />
