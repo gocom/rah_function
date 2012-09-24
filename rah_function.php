@@ -15,12 +15,13 @@
 
 	function rah_function($atts, $thing=NULL) {
 		
-		global $prefs, $is_article_body, $thisarticle;
+		global $prefs, $is_article_body, $thisarticle, $variable;
 		static $whitelist = NULL;
 		
 		extract(lAtts(array(
 			'call' => NULL,
 			'_is' => NULL,
+			'_assign' => NULL,
 		), $atts, 0));
 		
 		if($whitelist === NULL) {
@@ -50,7 +51,7 @@
 			return;
 		}
 
-		unset($atts['call'], $atts['_is']);
+		unset($atts['call'], $atts['_is'], $atts['_assign']);
 		
 		foreach($atts as $name => $value) {
 			
@@ -137,6 +138,10 @@
 		
 		elseif(is_array($atts)) {
 			$atts = json_encode($atts);
+		}
+		
+		if($_assign) {
+			$variable[$_assign] = $atts;
 		}
 		
 		if($_is !== NULL && $thing !== NULL) {
