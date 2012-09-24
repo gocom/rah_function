@@ -86,6 +86,10 @@
 					return;
 				}
 			}
+			
+			elseif(strpos($name, '_constant') === 0) {
+				$atts[$name] = defined($value) ? constant($value) : NULL;
+			}
 		}
 		
 		if($thing !== NULL && $_is === NULL) {
