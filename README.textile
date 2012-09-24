@@ -55,7 +55,11 @@ Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
 p. *_is*
 Converts the tag into a "conditional":http://textpattern.net/wiki/index.php?title=Self-closed_versus_Container_Tags. If set, the tag's results are compared against the value of the @_is@ attribute. If they match, the tag's contained statement is shown.
-Example: @_is="FALSE"@ Default: _undefined_
+Example: @_is="FALSE"@ Default: _undefined_.
+
+p. *_assign*
+Creates a "variable":http://textpattern.net/wiki/index.php?title=variable containing the tag's returned value. The value is used as the variable's name.
+Example: @_assign="variable"@ Default: _undefined_.
 
 p. *parameter1="" , parameter2="" , parameter3="",[..]*
 Zero or more parameters passed to the called function as arguments. Parameters are assigned to the function in the order they are defined in the tag. These additional tag attributes can be named anything. A valid attribute name can contain letters (A-z) and numbers (0-9). The names @thing@ and @call@ are reserved.
@@ -63,7 +67,7 @@ Example: @foo2="bar" foo1="bar" foo4="bar"@ Default: _undefined_.
 
 h2. Function parameters
 
-p. Apart from the tag's own reserved attributes, @thing@ and @call@, all attributes are passed to the called function as arguments in the order in which they are defined. If no additional attributes are used, then the called PHP function is used as is without arguments.
+p. Apart from the tag's own reserved attributes, including @thing@ and @call@, all attributes are passed to the called function as arguments in the order in which they are defined. If no additional attributes are used, then the called PHP function is used as is without arguments.
 
 p. When calling "md5":http://php.net/manual/en/function.md5.php, the first attribute would be used as the string from which a hash is calculated.
 
@@ -364,6 +368,7 @@ h2. Changelog
 h3. Version 0.7 - upcoming
 
 * Added: @_constant@ attribute prefix.
+* Added: @_assign@ attribute.
 
 h3. Version 0.6 - 2012/07/19
 
