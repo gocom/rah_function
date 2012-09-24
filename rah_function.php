@@ -88,7 +88,13 @@
 			}
 			
 			elseif(strpos($name, '_constant') === 0) {
-				$atts[$name] = defined($value) ? constant($value) : NULL;
+			
+				if(!defined($value)) {
+					trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
+					return;
+				}
+				
+				$atts[$name] = constant($value);
 			}
 		}
 		
