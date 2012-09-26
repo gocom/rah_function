@@ -13,18 +13,18 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-	function rah_function($atts, $thing=NULL) {
+	function rah_function($atts, $thing=null) {
 		
 		global $prefs, $is_article_body, $thisarticle, $variable;
-		static $whitelist = NULL;
+		static $whitelist = null;
 		
 		extract(lAtts(array(
-			'call' => NULL,
-			'_is' => NULL,
-			'_assign' => NULL,
+			'call' => null,
+			'_is' => null,
+			'_assign' => null,
 		), $atts, 0));
 		
-		if($whitelist === NULL) {
+		if($whitelist === null) {
 			$whitelist = defined('rah_function_whitelist') ? 
 				do_list(rah_function_whitelist) : array();
 		}
@@ -59,9 +59,9 @@
 				continue;
 			}
 			
-			if($thing !== NULL && substr($name, -5) == 'thing' && $_is === NULL) {
+			if($thing !== null && substr($name, -5) == 'thing' && $_is === null) {
 				$value = $atts[$name] = parse($thing);
-				$thing = NULL;
+				$thing = null;
 			}
 			
 			$value = trim($value);
@@ -75,7 +75,7 @@
 			}
 			
 			elseif(strpos($name, '_null') === 0) {
-				$atts[$name] = NULL;
+				$atts[$name] = null;
 			}
 			
 			elseif(strpos($name, '_array') === 0) {
@@ -99,7 +99,7 @@
 			}
 		}
 		
-		if($thing !== NULL && $_is === NULL) {
+		if($thing !== null && $_is === null) {
 			array_unshift($atts, parse($thing));
 		}
 		
@@ -144,7 +144,7 @@
 					next($atts);
 				}
 				
-				$_assign = NULL;
+				$_assign = null;
 			}
 			
 			$atts = json_encode($atts);
@@ -154,7 +154,7 @@
 			$variable[$_assign] = $atts;
 		}
 		
-		if($_is !== NULL && $thing !== NULL) {
+		if($_is !== null && $thing !== null) {
 			return parse(EvalElse($thing, $atts === $_is));
 		}
 		
