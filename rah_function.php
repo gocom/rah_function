@@ -137,6 +137,16 @@
 		}
 		
 		elseif(is_array($atts)) {
+			
+			if($_assign) {
+				foreach(do_list($_assign) as $name) {
+					$variable[$name] = (string) current($atts);
+					next($atts);
+				}
+				
+				$_assign = NULL;
+			}
+			
 			$atts = json_encode($atts);
 		}
 		
