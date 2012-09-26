@@ -374,7 +374,7 @@ h2. Changelog
 
 h3. Version 0.7 - upcoming
 
-* Added: @_constant@ attribute prefix.
+* Added: @_constant@ attribute prefix.
 * Added: @_assign@ attribute.
 
 h3. Version 0.6 - 2012/07/19
