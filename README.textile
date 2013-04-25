@@ -374,7 +374,7 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.7.0 - upcoming
+h3. Version 0.7.0 - 2013/04/25
 
 * Added: @_constant@ attribute prefix.
 * Added: @_assign@ attribute.

@@ -1,7 +1,7 @@
 {
 	"name"        : "rah_function",
 	"description" : "Every function is a Textpattern tag",
-	"version"     : "0.6",
+	"version"     : "0.7.0",
 	"type"        : 0,
 	"author"      : "Jukka Svahn",
 	"author_uri"  : "http://rahforum.biz",
