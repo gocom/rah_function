@@ -1,0 +1,24 @@
+{
+	"name": "rah/rah_function",
+	"description": "Every PHP function and method is a Textpattern tag",
+	"keywords": ["textpattern"],
+	"homepage": "http://rahforum.biz/plugins/rah_function",
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Jukka Svahn",
+			"homepage": "http://rahforum.biz",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/gocom/rah_function/issues",
+		"source": "https://github.com/gocom/rah_function"
+	},
+	"autoload": {
+		"files": []
+	},
+	"require": {
+		"php": ">=5.2.0"
+	}
+}
