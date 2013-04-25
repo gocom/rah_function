@@ -15,7 +15,7 @@
 
 	function rah_function($atts, $thing = null)
 	{
-		global $prefs, $is_article_body, $thisarticle, $variable;
+		global $is_article_body, $thisarticle, $variable;
 		static $whitelist = null;
 
 		extract(lAtts(array(
@@ -38,7 +38,7 @@
 
 		if ($is_article_body)
 		{
-			if (!$prefs['allow_article_php_scripting'])
+			if (!get_pref('allow_article_php_scripting'))
 			{
 				trigger_error(gTxt('php_code_disabled_article'));
 				return;
@@ -51,7 +51,7 @@
 			}
 		}
 
-		else if (!$prefs['allow_page_php_scripting'])
+		else if (!get_pref('allow_page_php_scripting'))
 		{
 			trigger_error(gTxt('php_code_disabled_page'));
 			return;
