@@ -12,8 +12,10 @@ h2. List of features
 
 h2. Requirements
 
-* Textpattern v4.0.7 or newer.
-* PHP 5.2 or newer.
+p. Rah_function's minimum requirements:
+
+* Textpattern 4.0.7 or newer.
+* PHP 5.2.0 or newer.
 
 h2. Installing
 
