@@ -376,6 +376,7 @@ h3. Version 0.7.0 - upcoming
 
 * Added: @_constant@ attribute prefix.
 * Added: @_assign@ attribute.
+* Released as a "composer package":https://packagist.org/packages/rah/rah_function.
 
 h3. Version 0.6 - 2012/07/19
 
