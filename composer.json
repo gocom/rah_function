@@ -1,7 +1,7 @@
 {
 	"name": "rah/rah_function",
 	"description": "Every PHP function and method is a Textpattern tag",
-	"keywords": ["textpattern"],
+	"keywords": ["textpattern", "plugin"],
 	"homepage": "http://rahforum.biz/plugins/rah_function",
 	"license": "GPL-2.0",
 	"authors": [
@@ -15,10 +15,9 @@
 		"issues": "https://github.com/gocom/rah_function/issues",
 		"source": "https://github.com/gocom/rah_function"
 	},
-	"autoload": {
-		"files": []
-	},
 	"require": {
-		"php": ">=5.2.0"
+		"php": ">=5.2.0",
+		"textpattern/lock": ">=4.0.7",
+		"textpattern/installer": "*"
 	}
 }
