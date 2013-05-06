@@ -374,7 +374,7 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.7.1 - upcoming
+h3. Version 0.7.1 - 2013/05/06
 
 * Changed: Updated the Composer package to use "textpattern/installer":https://github.com/gocom/textpattern-installer.
 
