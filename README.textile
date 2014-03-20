@@ -1,6 +1,6 @@
 h1. rah_function
 
-"Project page":http://rahforum.biz/plugins/rah_function | "Packagist":https://packagist.org/packages/rah/rah_function | "Twitter":http://twitter.com/gocom | "GitHub":https://github.com/gocom/rah_function | "Support forum":http://forum.textpattern.com/viewtopic.php?id=32389 | "Donate":http://rahforum.biz/donate/rah_function
+"Download":https://github.com/gocom/rah_function/releases | "Packagist":https://packagist.org/packages/rah/rah_function | "Twitter":http://twitter.com/gocom | "Issues":https://github.com/gocom/rah_function/issues | "Support forum":http://forum.textpattern.com/viewtopic.php?id=32389 | "Donate":http://rahforum.biz/donate/rah_function
 
 Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- the only thing you need is a XML like tag.
 
