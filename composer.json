@@ -4,6 +4,7 @@
 	"keywords": ["textpattern", "plugin"],
 	"homepage": "http://rahforum.biz/plugins/rah_function",
 	"license": "GPL-2.0",
+    "type": "textpattern-plugin",
 	"authors": [
 		{
 			"name": "Jukka Svahn",
