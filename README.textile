@@ -368,7 +368,7 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.7.2 - upcoming
+h3. Version 0.7.2 - 2014/03/20
 
 * Fixed: error in composer.json file that prevented the plugin from being installed with Composer.
 
