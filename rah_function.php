@@ -4,7 +4,6 @@
  * Rah_function plugin for Textpattern CMS.
  *
  * @author  Jukka Svahn
- * @date    2009-
  * @license GNU GPLv2
  * @link    http://rahforum.biz/plugins/rah_function
  *
