@@ -17,19 +17,13 @@ Rah_function's minimum requirements:
 * Textpattern 4.0.7 or newer.
 * PHP 5.2.0 or newer.
 
-h2. Installing
+h2. Install
 
-Rah_function's installation follows the standard plugin installation steps.
+Using "Composer":http://getcomposer.org:
 
-# Download the plugin installation code.
-# Copy and paste the installation code into the _Install plugin_ box of your Textpattern Plugin pane.
-# Run the automated setup.
-# After the setup is done, activate the plugin. Done.
+bc. $ composer require rah/rah_function:*
 
-The plugin respects Textpattern's scripting preferences. After installation make sure that you have allowed PHP scripting:
-
-# Go to Textpattern's Advanced Preferences (Textpattern > Admin > Preferences > Advanced).
-# Toggle _allow_ on PHP scripting for Pages and Articles (or for where you want to use the plugin).
+Or "download":https://github.com/gocom/rah_function/releases a plugin package.
 
 h2. Basics
 
