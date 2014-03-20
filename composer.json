@@ -1,24 +1,24 @@
 {
-	"name": "rah/rah_function",
-	"description": "Every PHP function and method is a Textpattern tag",
-	"keywords": ["textpattern", "plugin"],
-	"homepage": "http://rahforum.biz/plugins/rah_function",
-	"license": "GPL-2.0",
+    "name": "rah/rah_function",
+    "description": "Every PHP function and method is a Textpattern tag",
+    "keywords": ["textpattern", "plugin"],
+    "homepage": "http://rahforum.biz/plugins/rah_function",
+    "license": "GPL-2.0",
     "type": "textpattern-plugin",
-	"authors": [
-		{
-			"name": "Jukka Svahn",
-			"homepage": "http://rahforum.biz",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/gocom/rah_function/issues",
-		"source": "https://github.com/gocom/rah_function"
-	},
-	"require": {
-		"php": ">=5.2.0",
-		"textpattern/lock": ">=4.0.7",
-		"textpattern/installer": "*"
-	}
+    "authors": [
+        {
+            "name": "Jukka Svahn",
+            "homepage": "http://rahforum.biz",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/gocom/rah_function/issues",
+        "source": "https://github.com/gocom/rah_function"
+    },
+    "require": {
+        "php": ">=5.2.0",
+        "textpattern/lock": ">=4.0.7",
+        "textpattern/installer": "*"
+    }
 }
