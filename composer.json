@@ -1,14 +1,14 @@
 {
     "name": "rah/rah_function",
-    "description": "Every PHP function and method is a Textpattern tag",
+    "description": "Every PHP function and method is a Textpattern CMS template tag",
     "keywords": ["textpattern", "plugin"],
-    "homepage": "http://rahforum.biz/plugins/rah_function",
+    "homepage": "https://github.com/gocom/rah_function",
     "license": "GPL-2.0",
     "type": "textpattern-plugin",
     "authors": [
         {
             "name": "Jukka Svahn",
-            "homepage": "http://rahforum.biz",
+            "homepage": "https://github.com/gocom",
             "role": "Developer"
         }
     ],
@@ -17,8 +17,14 @@
         "source": "https://github.com/gocom/rah_function"
     },
     "require": {
-        "php": ">=5.2.0",
-        "textpattern/lock": ">=4.0.7",
+        "php": ">=5.6.0",
+        "textpattern/lock": ">=4.6.0",
         "textpattern/installer": "*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "scripts": {
+        "cs": "./vendor/bin/phpcs"
     }
 }

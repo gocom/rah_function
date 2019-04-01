@@ -1,10 +1,10 @@
 <?php
 
 /*
- * rah_function - Flat templates for Textpattern CMS
+ * rah_function - Every PHP function is a Textpattern CMS tag
  * https://github.com/gocom/rah_function
  *
- * Copyright (C) 2014 Jukka Svahn
+ * Copyright (C) 2019 Jukka Svahn
  *
  * This file is part of rah_function.
  *
@@ -28,25 +28,24 @@
  * @param  string|null $thing Contained statement
  * @return string User markup
  */
-
 function rah_function($atts, $thing = null)
 {
     global $is_article_body, $thisarticle, $variable;
     static $whitelist = null;
 
-    extract(lAtts(array(
-        'call'    => null,
-        '_is'     => null,
+    extract(lAtts([
+        'call' => null,
+        '_is' => null,
         '_assign' => null,
-    ), $atts, 0));
+    ], $atts, 0));
 
     if ($whitelist === null) {
-        $whitelist = defined('rah_function_whitelist') ? 
-            do_list(rah_function_whitelist) : array();
+        $whitelist = defined('rah_function_whitelist') ?
+            do_list(rah_function_whitelist) : [];
     }
 
     if (!$call) {
-        trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
+        trigger_error(gTxt('invalid_attribute_value', ['{name}' => 'call']));
         return;
     }
 
@@ -60,7 +59,7 @@ function rah_function($atts, $thing = null)
             trigger_error(gTxt('php_code_forbidden_user'));
             return;
         }
-    } else if (!get_pref('allow_page_php_scripting')) {
+    } elseif (!get_pref('allow_page_php_scripting')) {
         trigger_error(gTxt('php_code_disabled_page'));
         return;
     }
@@ -86,15 +85,15 @@ function rah_function($atts, $thing = null)
         } elseif (strpos($name, '_null') === 0) {
             $atts[$name] = null;
         } elseif (strpos($name, '_array') === 0) {
-            $atts[$name] = $value === '' ? array() : @json_decode($value, true);
+            $atts[$name] = $value === '' ? [] : @json_decode($value, true);
 
             if (!is_array($atts[$name])) {
-                trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
+                trigger_error(gTxt('invalid_attribute_value', ['{name}' => $name]));
                 return;
             }
         } elseif (strpos($name, '_constant') === 0) {
             if (!defined($value)) {
-                trigger_error(gTxt('invalid_attribute_value', array('{name}' => $name)));
+                trigger_error(gTxt('invalid_attribute_value', ['{name}' => $name]));
                 return;
             }
 
@@ -106,7 +105,7 @@ function rah_function($atts, $thing = null)
         array_unshift($atts, parse($thing));
     }
 
-    foreach (do_list($call) as $index => $name) {    
+    foreach (do_list($call) as $index => $name) {
         $f = $name;
 
         if (strpos($f, '::')) {
@@ -120,19 +119,19 @@ function rah_function($atts, $thing = null)
         }
 
         if (!is_callable($f) || ($whitelist && !in_array($name, $whitelist))) {
-            trigger_error(gTxt('invalid_attribute_value', array('{name}' => 'call')));
+            trigger_error(gTxt('invalid_attribute_value', ['{name}' => 'call']));
             return;
         }
 
-        $atts = call_user_func_array($f, !$index ? $atts : array($atts));
+        $atts = call_user_func_array($f, !$index ? $atts : [$atts]);
     }
 
     if (!is_scalar($atts) && !is_array($atts)) {
-        trigger_error(gTxt('rah_function_illegal_type', array('{type}' => gettype($atts))));
+        trigger_error(gTxt('rah_function_illegal_type', ['{type}' => gettype($atts)]));
         $atts = '';
-    } else if (is_bool($atts)) {
+    } elseif (is_bool($atts)) {
         $atts = $atts ? 'TRUE' : 'FALSE';
-    } else if (is_array($atts)) {
+    } elseif (is_array($atts)) {
         if ($_assign) {
             foreach (do_list($_assign) as $name) {
                 $variable[$name] = (string) current($atts);

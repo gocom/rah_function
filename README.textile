@@ -1,29 +1,14 @@
 h1. rah_function
 
-"Download":https://github.com/gocom/rah_function/releases | "Packagist":https://packagist.org/packages/rah/rah_function | "Twitter":http://twitter.com/gocom | "Issues":https://github.com/gocom/rah_function/issues | "Support forum":http://forum.textpattern.com/viewtopic.php?id=32389 | "Donate":http://rahforum.biz/donate/rah_function
+"Packagist":https://packagist.org/packages/rah/rah_function | "Issues":https://github.com/gocom/rah_function/issues | "Donate":https://rahforum.biz/donate/rah_function
 
-Every function is a @<txp:tag />@. Rah_function allows you to call any PHP function in Textpattern's tag syntax. No need for PHP snippets, ending nor closing PHP tags -- the only thing you need is a XML like tag.
-
-h2. List of features
-
-* Call any PHP function with a single Textpattern tag.
-* Freely use functions attributes, flags and parameters.
-* Supports both a container- and a single-tag format.
-
-h2. Requirements
-
-Rah_function's minimum requirements:
-
-* Textpattern 4.0.7 or newer.
-* PHP 5.2.0 or newer.
+Every PHP function and method is a "Textpattern CMS":https://textpattern.com template tag.
 
 h2. Install
 
-Using "Composer":http://getcomposer.org:
+Using "Composer":https://getcomposer.org:
 
-bc. $ composer require rah/rah_function:*
-
-Or "download":https://github.com/gocom/rah_function/releases a plugin package.
+bc. $ composer require rah/rah_function
 
 h2. Basics
 
@@ -37,7 +22,7 @@ Rah_function is almost like a bridge between PHP and Textpattern's tag syntax. I
 
 The tag takes a @call@ attribute which sets the function that is called by the tag. Apart from a @thing@, all attributes used in a tag are passed to the called PHP function as its arguments. The tag then processes the request and returns the results.
 
-h2. Tag attributes
+h2. Attributes
 
 Attributes for @<txp:rah_function />@ are as follows:
 
@@ -95,11 +80,11 @@ h3. As a self-closing tag
 
 A container translates seamlessly to a singular self-closing tag. The contained statement is a function parameter just like tag attributes, and as such, can be substituted with a tag attribute. The following does exactly same thing as the previous str_replace examples that used containers.
 
-bc. <txp:rah_function 
-    call="str_replace" 
-    from="Hi" 
-    to="Hello" 
-    string="Hi World!" 
+bc. <txp:rah_function
+    call="str_replace"
+    from="Hi"
+    to="Hello"
+    string="Hi World!"
 />
 
 These two "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php snippets give the same results, but do it with different syntaxes. As a self-closing tag, a string would be passed to the function as a tag attribute.
@@ -197,7 +182,7 @@ The rest of types, including object, resource, NULL and callable will be discard
 
 h2. Type casting and special attribute prefixes
 
-bc. <txp:rah_function 
+bc. <txp:rah_function
     _boolAttr="boolean"
     _nullAttr="NULL"
     _intAttr="integer"
