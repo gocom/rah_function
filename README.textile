@@ -35,11 +35,11 @@ Defines the argument position of a container tag's contained statement. If a @th
 Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
 
 *_is*
-Converts the tag into a "conditional":http://textpattern.net/wiki/index.php?title=Self-closed_versus_Container_Tags. If set, the tag's results are compared against the value of the @_is@ attribute. If they match, the tag's contained statement is shown.
+Converts the tag into a "conditional":https://docs.textpattern.com/tags/tag-basics/conditional-tags. If set, the tag's results are compared against the value of the @_is@ attribute. If they match, the tag's contained statement is shown.
 Example: @_is="FALSE"@ Default: _undefined_.
 
 *_assign*
-Creates a "variable":http://textpattern.net/wiki/index.php?title=variable containing the tag's returned value. The value is used as the variable's name.
+Creates a "variable":https://docs.textpattern.com/tags/variable containing the tag's returned value. The value is used as the variable's name.
 Example: @_assign="variable"@ Default: _undefined_.
 
 *parameter1="" , parameter2="" , parameter3="",[..]*
@@ -50,7 +50,7 @@ h2. Function parameters
 
 Apart from the tag's own reserved attributes, including @thing@ and @call@, all attributes are passed to the called function as arguments in the order in which they are defined. If no additional attributes are used, then the called PHP function is used as is without arguments.
 
-When calling "md5":http://php.net/manual/en/function.md5.php, the first attribute would be used as the string from which a hash is calculated.
+When calling "md5":https://secure.php.net/manual/en/function.md5.php, the first attribute would be used as the string from which a hash is calculated.
 
 bc. <txp:rah_function call="md5" str="apple" />
 
@@ -68,7 +68,7 @@ bc. <txp:rah_function call="str_replace" from="Hello" to="Hi" thing="here">
     Hello World!
 </txp:rah_function>
 
-In the snippet above, the contained statement @Hi World!@ is used as the third parameter of the "str_replace":http://php.net/manual/en/function.str-replace.php function because that is where the @thing="here"@ is ordered. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be applied as first argument, leading to different results.
+In the snippet above, the contained statement @Hi World!@ is used as the third parameter of the "str_replace":https://secure.php.net/manual/en/function.str-replace.php function because that is where the @thing="here"@ is ordered. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be applied as first argument, leading to different results.
 
 bc. <txp:rah_function call="str_replace" from="Hello" to="Hi">
     Hello World!
@@ -97,11 +97,11 @@ bc. <txp:rah_function call="htmlspecialchars">
     <p class="msg">Hello World!</p>
 </txp:rah_function>
 
-Gives a relatively readable formatting and avoids "quote escaping":http://textpattern.net/wiki/index.php?title=Parsing_Tag_Attributes that comes with tag attributes.
+Gives a relatively readable formatting and avoids "quote escaping":https://docs.textpattern.com/tags/tag-basics/parsing-tag-attributes that comes with tag attributes.
 
 h2. Conditionals
 
-A rah_function tag can transform into a conditional by applying the @_is@ attribute. When @_is@ is used, the tag's results are compared against the attribute's value. If they match, the tag's contained statement is shown. If compared values do not match, an "else":http://textpattern.net/wiki/index.php?title=else statement is shown, if defined.
+A rah_function tag can transform into a conditional by applying the @_is@ attribute. When @_is@ is used, the tag's results are compared against the attribute's value. If they match, the tag's contained statement is shown. If compared values do not match, an "else":https://docs.textpattern.com/tags/else statement is shown, if defined.
 
 bc. <txp:rah_function call="cs" name="theme" _is="blue">
     Theme is set as blue.
@@ -119,13 +119,13 @@ bc. <txp:rah_function call="strip_tags, trim">
     <p>Some markup to <strong>strip</strong> and surrounding white-space to trim.</p>
 </txp:rah_function>
 
-Specified functions are processed from left to right. In the above snippet, "strip_tags":http://php.net/manual/en/function.strip-tags.php is ran first and its output is then passed on to "trim":http://php.net/manual/en/function.trim.php.
+Specified functions are processed from left to right. In the above snippet, "strip_tags":https://secure.php.net/manual/en/function.strip-tags.php is ran first and its output is then passed on to "trim":https://secure.php.net/manual/en/function.trim.php.
 
 The first function in the list acts as the primary one. Its output is passed by reference to the following functions and all tag attributes apply only to it. The second or later functions do not get passed any attributes and the output from the first function is assigned as the consecutive functions' first parameter.
 
 Calling multiple functions works only if the following functions expect a single parameter. If they require more than a one parameter, more than one @<txp:rah_function />@ tag is needed.
 
-Calling both "str_replace":http://www.php.net/manual/en/function.str-replace.php and "substr":http://www.php.net/manual/en/function.substr.php would require two tags as both require two or more parameters.
+Calling both "str_replace":https://secure.php.net/manual/en/function.str-replace.php and "substr":https://secure.php.net/manual/en/function.substr.php would require two tags as both require two or more parameters.
 
 bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
     <txp:rah_function call="substr" string="Hello World!" start="0" end="7" />
@@ -133,7 +133,7 @@ bc. <txp:rah_function call="str_replace" from="Hi" to="Hello">
 
 h2. Returned values and legal types
 
-Due to how Textpattern's template language and PHP work, not every function's output can be returned to the template in its original format. The limitation comes in the form of "types":http://php.net/manual/en/language.types.php.
+Due to how Textpattern's template language and PHP work, not every function's output can be returned to the template in its original format. The limitation comes in the form of "types":https://secure.php.net/manual/en/language.types.php.
 
 h3. Integers, floats and strings
 
@@ -143,7 +143,7 @@ h3. Booleans
 
 The last from the scalars, boolean, is converted to an uppercase string @TRUE@ or @FALSE@. This is to allow differentiating an empty string (@""@), numbers @1@, @0@ and booleans from one another, otherwise in Textpattern's template context you would have no idea which is which.
 
-For instance, PHP's "strpos":http://www.php.net/manual/en/function.strpos.php returns an integer starting from zero or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
+For instance, PHP's "strpos":https://secure.php.net/manual/en/function.strpos.php returns an integer starting from zero or a boolean @FALSE@ when no matches are found. When the output gets converted to a string, that zero and FALSE become the same, and there would be no way of knowing whether there were any matches.
 
 bc. <txp:rah_function
     call="strpos"
@@ -168,11 +168,11 @@ bc.. <txp:rah_function
 
 h3. Arrays
 
-Returned "arrays":http://www.php.net/manual/en/language.types.array.php will be converted to "JSON":http://php.net/manual/en/function.json-encode.php representations. The following snippet would split the list of values into an array.
+Returned "arrays":https://secure.php.net/manual/en/language.types.array.php will be converted to "JSON":https://secure.php.net/manual/en/function.json-encode.php representations. The following snippet would split the list of values into an array.
 
 bc. <txp:rah_function call="explode" delimiter=", " values="value1, value2, value3" />
 
-The numeric array returned by "explode":http://php.net/manual/en/function.explode.php would be converted and returned as a literal JavaScript array.
+The numeric array returned by "explode":https://secure.php.net/manual/en/function.explode.php would be converted and returned as a literal JavaScript array.
 
 bc. ["value1","value2","value3"]
 
@@ -211,33 +211,27 @@ bc. <txp:rah_function call="function" _intid="I will be zero" _intnumericval="24
 
 h3. _array
 
-The @_array@ prefix is used to generate and pass arrays. An attribute prefixed with an @_array@ takes a "JSON":http://json.org/ string (JavaScript Object Notation) and converts it to a PHP's array.
+The @_array@ prefix is used to generate and pass arrays. An attribute prefixed with an @_array@ takes a "JSON":https://json.org/ string (JavaScript Object Notation) and converts it to a PHP's array.
 
 bc. <txp:rah_function call="implode" _arrayValue="[1, 2, 3]" />
 
 h2. Security related features
 
-Considering the plugin's nature, it comes with few options to limit its access. Limiting extends to both what a rah_function tag can do and where the tag can be used. The plugin has a whitelisting option for enabling only certain functions, and it follows Textpattern's PHP evaluation rules and user privileges, the same rules that affect "php":http://textpattern.net/wiki/index.php?title=php tags.
+Considering the plugin's nature, it comes with few options to limit its access. Limiting extends to both what a rah_function tag can do and where the tag can be used. The plugin has a whitelisting option for enabling only certain functions, and it follows Textpattern's PHP evaluation rules and user privileges, the same rules that affect "php":https://docs.textpattern.com/tags/php tags.
 
 h3. Privileges in articles
 
-User group privileges limit which users can use @<txp:rah_function />@ tags within articles. Only user-groups that have privileges granted an @article.php@ level can use the tags in an article body, custom fields or excerpt. By default only the two highest groups, Publishers and Managing Editors (groups with ID 1 and 2) have access to @article.php@ and will be able to publish articles with the plugin's tags in them. For more information about user-privileges, please see:
-
-* "Modifying User Account Roles and Privileges.":http://textpattern.net/wiki/index.php?title=Modifying_User_Account_Roles_and_Privileges
-* "Users":http://textpattern.net/wiki/index.php?title=Users
-* "User Roles and Permissions":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions
+User group privileges limit which users can use @<txp:rah_function />@ tags within articles. Only user-groups that have privileges granted access to @article.php@ resource can use the tags in an article body, custom fields or excerpt. By default only the two highest groups, Publishers and Managing Editors (groups with ID 1 and 2) have access to @article.php@ and will be able to publish articles with the plugin's tags in them.
 
 h3. Advanced PHP preferences
 
-Rah_function follows the two PHP options that can be found from Textpattern's "Advanced Preferences":http://textpattern.net/wiki/index.php?title=Advanced_Preferences panel, *Allow PHP in pages* and *Allow PHP in articles*.
-
-When *Allow PHP in pages* option is disabled, a rah_function tag can not be used in a "page template":http://textpattern.net/wiki/index.php?title=Pages or a "form partial":http://textpattern.net/wiki/index.php?title=Forms. When *Allow PHP in articles* option is disabled, rah_function tag can not be used in articles. The tags won't be executed, no matter what permissions the article's author has.
+Rah_function follows the two PHP options that can be found from Textpattern's "Preferences":https://docs.textpattern.com/administration/preferences-panel panel, *Allow PHP in pages* and *Allow PHP in articles*. When *Allow PHP in pages* option is disabled, a rah_function tag can not be used in a page template or a form partial. When *Allow PHP in articles* option is disabled, rah_function tag can not be used in articles. The tags won't be executed, no matter what permissions the article's author has.
 
 h3. Function whitelisting
 
 For added optional security, certain functions can be explicitly whitelisted. If the whitelisting option is defined, then only those whitelisted functions can be called with a rah_function tag.
 
-Whitelisting options can be set from Textpattern's @config.php@ (e.g. /textpattern/config.php) file. Setting a whitelist up doesn't take more than adding a single line to the config. Rah_function expects a constant named @rah_function_whitelist@, populated with a comma-separated list of function names. Function names and class methods should be formatted in the same way as when used in a rah_function tag's @call@ attribute.
+Whitelisting options can be set from Textpattern's @config.php@ file. Rah_function expects a constant named @rah_function_whitelist@, populated with a comma-separated list of function names. Function names and class methods should be formatted in the same way as when used in a rah_function tag's @call@ attribute.
 
 bc. define('rah_function_whitelist', 'gps, ps, htmlspecialchars, str_replace, Class::StaticMethod, Class->Method');
 
@@ -265,7 +259,7 @@ Returns: @Hi world!@
 
 h3. Sanitizing and returning HTTP GET value
 
-Returning GET/POST values and sanitizing the output can be done with a single rah_function tag instance by using the plugin's multi-function call feature. First we would use Textpattern's @gps@ function to get a specific value, e.g. @theme@, and then prepare it for the page template by converting HTML's special characters to entities with "htmlspecialchars":http://php.net/manual/en/function.htmlspecialchars.php.
+Returning GET/POST values and sanitizing the output can be done with a single rah_function tag instance by using the plugin's multi-function call feature. First we would use Textpattern's @gps@ function to get a specific value, e.g. @theme@, and then prepare it for the page template by converting HTML's special characters to entities with "htmlspecialchars":https://secure.php.net/manual/en/function.htmlspecialchars.php.
 
 bc. <txp:rah_function call="gps, htmlspecialchars" name="theme" />
 
@@ -287,7 +281,7 @@ bc. <txp:rah_function call="get_pref" name="production_status" _is="debug">
 
 h3. Removing, appending and prepending whitespace or other characters
 
-PHP comes with a couple useful functions for removing whitespace and other characters from the beginning and end of a string: "trim":http://php.net/manual/en/function.trim.php, "ltrim":http://php.net/manual/en/function.ltrim.php and "rtrim.":http://php.net/manual/en/function.rtrim.php Trim removes characters from both ends, while ltrim only touches the beginning and rtrim() wants to be all rightful. All three can take up to two arguments. The first one is the string which will be trimmed, and the second, a list of characters that are stripped. If no characters are specified, white-space is stripped.
+PHP comes with a couple useful functions for removing whitespace and other characters from the beginning and end of a string: "trim":https://secure.php.net/manual/en/function.trim.php, "ltrim":https://secure.php.net/manual/en/function.ltrim.php and "rtrim.":https://secure.php.net/manual/en/function.rtrim.php Trim removes characters from both ends, while ltrim only touches the beginning and rtrim() wants to be all rightful. All three can take up to two arguments. The first one is the string which will be trimmed, and the second, a list of characters that are stripped. If no characters are specified, white-space is stripped.
 
 h4. Stripping zeros from the beginning
 
@@ -352,6 +346,11 @@ bc. <txp:rah_function call="safe_count" table="textpattern" where="Status IN(4, 
 Returns: number of articles.
 
 h2. Changelog
+
+h3. Version 0.8.0 - upcoming
+
+* Register the tag.
+* Now requires Textpattern 4.6.0 or newer.
 
 h3. Version 0.7.2 - 2014/03/20
 
