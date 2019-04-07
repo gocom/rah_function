@@ -350,6 +350,7 @@ h2. Changelog
 h3. Version 0.8.0 - upcoming
 
 * Register the tag.
+* Called function name can be set with the first boolean attribute if @call@ is omitted.
 * Now requires Textpattern 4.7.0 or newer.
 
 h3. Version 0.7.2 - 2014/03/20

@@ -39,6 +39,11 @@ function rah_function($atts, $thing = null)
         '_assign' => null,
     ], $atts, 0));
 
+    if ($call === null && $atts) {
+        $call = array_keys($atts)[0];
+        unset($atts[$call]);
+    }
+
     if ($whitelist === null) {
         $whitelist = defined('rah_function_whitelist') ?
             do_list(rah_function_whitelist) : [];
