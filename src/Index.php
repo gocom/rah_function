@@ -21,4 +21,6 @@
  * along with rah_function. If not, see <http://www.gnu.org/licenses/>.
  */
 
-Txp::get('\Textpattern\Tag\Registry')->register('rah_function', 'rah_function');
+Txp::get('\Textpattern\Tag\Registry')
+    ->register('rah_function', 'rah_function')
+    ->register('rah_function', 'rah_fn');
