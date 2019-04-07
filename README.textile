@@ -12,7 +12,7 @@ bc. $ composer require rah/rah_function
 
 h2. Basics
 
-bc. <rah::fn call="function" thing="here" parameter1="value" parameter2="value">
+bc. <rah::fn call="function" thing parameter1="value" parameter2="value">
     Contained statement
 </rah::fn>
 
@@ -31,8 +31,8 @@ Name of the function or the class method you want to use with the tag. Comma-sep
 Example: @call="base64_encode"@ Default: @""@
 
 *thing*
-Defines the argument position of a container tag's contained statement. If a @thing="here"@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, the contained statement is used as the first argument.
-Example: @foo="bar" thing="here" bar="foo"@ Default: _undefined_.
+Defines the argument position of a container tag's contained statement. If a @thing@ is the last defined attribute in the tag, then the contained statement is used as the last argument too for the PHP function. If @thing@ is left undefined, the contained statement is used as the first argument.
+Example: @foo="bar" thing bar="foo"@ Default: _undefined_.
 
 *_is*
 Converts the tag into a "conditional":https://docs.textpattern.com/tags/tag-basics/conditional-tags. If set, the tag's results are compared against the value of the @_is@ attribute. If they match, the tag's contained statement is shown.
@@ -62,13 +62,13 @@ Rah_function supports both container and self-closing, single tag use.
 
 h3. As a container tag
 
-The tag supports both a container and self-closing usage. When using the tag as a container tag, the contained statement is used in the parameter position specified by the tag's @thing="here"@ attribute. If the @thing@ attribute is undefined, the contained statement is used as the first parameter of the PHP function.
+The tag supports both a container and self-closing usage. When using the tag as a container tag, the contained statement is used in the parameter position specified by the tag's @thing@ attribute. If the @thing@ attribute is undefined, the contained statement is used as the first parameter of the PHP function.
 
-bc. <rah::fn call="str_replace" from="Hello" to="Hi" thing="here">
+bc. <rah::fn call="str_replace" from="Hello" to="Hi" thing>
     Hello World!
 </rah::fn>
 
-In the snippet above, the contained statement @Hi World!@ is used as the third parameter of the "str_replace":https://secure.php.net/manual/en/function.str-replace.php function because that is where the @thing="here"@ is ordered. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be applied as first argument, leading to different results.
+In the snippet above, the contained statement @Hi World!@ is used as the third parameter of the "str_replace":https://secure.php.net/manual/en/function.str-replace.php function because that is where the @thing@ is ordered. The snippet returns @Hello World!@, as expected. If @thing@ attribute wasn't used, the contained statement would be applied as first argument, leading to different results.
 
 bc. <rah::fn call="str_replace" from="Hello" to="Hi">
     Hello World!
@@ -249,9 +249,9 @@ Returns: @Hi world!@
 
 h3. Replacing content using str_replace and containers
 
-A contained statement is used as "str_replace":https://secure.php.net/manual/en/function.str-replace.php's _subject_ parameter. Wrapped content is positioned to the correct location by using @thing="here"@ in the tag.
+A contained statement is used as "str_replace":https://secure.php.net/manual/en/function.str-replace.php's _subject_ parameter. Wrapped content is positioned to the correct location by using @thing@ in the tag.
 
-bc. <rah::fn call="str_replace" search="Hello" replace="Hi" thing="here">
+bc. <rah::fn call="str_replace" search="Hello" replace="Hi" thing>
     Hello world!
 </rah::fn>
 
