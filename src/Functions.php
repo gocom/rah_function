@@ -67,11 +67,11 @@ function rah_function($atts, $thing = null)
     unset($atts['call'], $atts['_is'], $atts['_assign']);
 
     foreach ($atts as $name => $value) {
-        if (strpos($name, '_') !== 0 && $name != 'thing') {
+        if (strpos($name, '_') !== 0 && $name !== 'thing') {
             continue;
         }
 
-        if ($thing !== null && substr($name, -5) == 'thing' && $_is === null) {
+        if ($thing !== null && substr($name, -5) === 'thing' && $_is === null) {
             $value = $atts[$name] = parse($thing);
             $thing = null;
         }
@@ -79,7 +79,7 @@ function rah_function($atts, $thing = null)
         $value = trim($value);
 
         if (strpos($name, '_bool') === 0) {
-            $atts[$name] = $value && $value != 'FALSE';
+            $atts[$name] = $value && $value !== 'FALSE';
         } elseif (strpos($name, '_int') === 0) {
             $atts[$name] = (int) $value;
         } elseif (strpos($name, '_null') === 0) {
