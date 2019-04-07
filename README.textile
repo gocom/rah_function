@@ -328,10 +328,11 @@ Returns: number of articles.
 
 h2. Changelog
 
-h3. Version 0.8.0 - upcoming
+h3. Version 0.8.0 - 2019/04/07
 
 * Register the tag.
 * Called function name can be set with the first boolean attribute if @call@ is omitted.
+* Supports boolean attributes as arguments.
 * Now requires Textpattern 4.7.0 or newer.
 
 h3. Version 0.7.2 - 2014/03/20
