@@ -81,6 +81,10 @@ function rah_function($atts, $thing = null)
             $thing = null;
         }
 
+        if (!is_string($value)) {
+            continue;
+        }
+
         $value = trim($value);
 
         if (strpos($name, '_bool') === 0) {
