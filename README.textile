@@ -1,6 +1,6 @@
 h1. rah_function
 
-"Packagist":https://packagist.org/packages/rah/rah_function | "Issues":https://github.com/gocom/rah_function/issues | "Donate":https://rahforum.biz/donate/rah_function
+"Download":https://github.com/gocom/rah_function/releases | "Packagist":https://packagist.org/packages/rah/rah_function | "Issues":https://github.com/gocom/rah_function/issues | "Donate":https://rahforum.biz/donate/rah_function
 
 Every PHP function and method is a "Textpattern CMS":https://textpattern.com template tag.
 
@@ -9,6 +9,8 @@ h2. Install
 Using "Composer":https://getcomposer.org:
 
 bc. $ composer require rah/rah_function
+
+Or "download":https://github.com/gocom/rah_function/releases an installer package.
 
 h2. Basics
 
