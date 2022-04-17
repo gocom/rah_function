@@ -1,6 +1,6 @@
 h1. rah_function
 
-"Download":https://github.com/gocom/rah_function/releases | "Packagist":https://packagist.org/packages/rah/rah_function | "Issues":https://github.com/gocom/rah_function/issues | "Donate":https://rahforum.biz/donate/rah_function
+"Download":https://github.com/gocom/rah_function/releases | "Packagist":https://packagist.org/packages/rah/rah_function | "Issues":https://github.com/gocom/rah_function/issues
 
 Every PHP function and method is a "Textpattern CMS":https://textpattern.com template tag.
 
@@ -332,7 +332,7 @@ h2. Changelog
 
 h3. Version 0.8.0 - 2019/04/07
 
-* Register the tag.
+* Register the tag for Textpattern >= 4.7.0 compatibility.
 * Called function name can be set with the first boolean attribute if @call@ is omitted.
 * Supports boolean attributes as arguments.
 * Now requires Textpattern 4.7.0 or newer.
