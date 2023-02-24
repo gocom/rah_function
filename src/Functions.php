@@ -45,28 +45,29 @@ function rah_function($atts, $thing = null)
     }
 
     if ($whitelist === null) {
-        $whitelist = defined('rah_function_whitelist') ?
-            do_list(rah_function_whitelist) : [];
+        $whitelist = defined('rah_function_whitelist')
+            ? do_list(rah_function_whitelist)
+            : [];
     }
 
     if (!$call) {
         trigger_error(gTxt('invalid_attribute_value', ['{name}' => 'call']));
-        return;
+        return '';
     }
 
     if ($is_article_body) {
         if (!get_pref('allow_article_php_scripting')) {
             trigger_error(gTxt('php_code_disabled_article'));
-            return;
+            return '';
         }
 
         if (!has_privs('article.php', $thisarticle['authorid'])) {
             trigger_error(gTxt('php_code_forbidden_user'));
-            return;
+            return '';
         }
     } elseif (!get_pref('allow_page_php_scripting')) {
         trigger_error(gTxt('php_code_disabled_page'));
-        return;
+        return '';
     }
 
     unset($atts['call'], $atts['_is'], $atts['_assign']);
@@ -98,12 +99,12 @@ function rah_function($atts, $thing = null)
 
             if (!is_array($atts[$name])) {
                 trigger_error(gTxt('invalid_attribute_value', ['{name}' => $name]));
-                return;
+                return '';
             }
         } elseif (strpos($name, '_constant') === 0) {
             if (!defined($value)) {
                 trigger_error(gTxt('invalid_attribute_value', ['{name}' => $name]));
-                return;
+                return '';
             }
 
             $atts[$name] = constant($value);
@@ -129,10 +130,10 @@ function rah_function($atts, $thing = null)
 
         if (!is_callable($f) || ($whitelist && !in_array($name, $whitelist))) {
             trigger_error(gTxt('invalid_attribute_value', ['{name}' => 'call']));
-            return;
+            return '';
         }
 
-        $atts = call_user_func_array($f, !$index ? $atts : [$atts]);
+        $atts = call_user_func_array($f, !$index ? array_values($atts) : [$atts]);
     }
 
     if (!is_scalar($atts) && !is_array($atts)) {

@@ -5,7 +5,7 @@ PHP = docker-compose run --rm php
 all: lint
 
 vendor:
-	$(PHP) composer --ignore-platform-req=ext-memcached install
+	$(PHP) composer install
 
 clean:
 	$(PHP) rm -rf vendor composer.lock

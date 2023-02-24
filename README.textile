@@ -330,6 +330,10 @@ Returns: number of articles.
 
 h2. Changelog
 
+h3. Version 0.8.1 - 2023/02/25
+
+* PHP >= 8.0 compatibility. In PHP 8.0 or greater, the tag attributes would be passed down as named arguments to functions. This would cause fatal error in cases where the names did not match. To mitigate the issue, this release reverts back to pre-8.0 behaviour where the attributes are passed based on their order rather than argument name.
+
 h3. Version 0.8.0 - 2019/04/07
 
 * Register the tag for Textpattern >= 4.7.0 compatibility.
